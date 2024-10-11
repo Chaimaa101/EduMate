@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#logout::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: 28px;
+  border-width: 10px 10px 10px 10px;
+  border-color: transparent transparent white transparent ;
+}
+
+
+a.active div {
+  @apply bg-blue-500 bg-opacity-20
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-[10px] bg-blue-500
+}
