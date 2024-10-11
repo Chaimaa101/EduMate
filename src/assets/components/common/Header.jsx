@@ -25,7 +25,7 @@ function Header({ title }) {
         >
           <div className="border-b pb-3">
             <p className="font-bold">Younes Boukrim</p>
-            <small className="font-semibold">younes25@gmail.com</small>
+            <small className="font-semibold">younes@gmail.com</small>
           </div>
           <button
             onClick={() => {
