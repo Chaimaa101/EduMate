@@ -8,6 +8,7 @@ import Blog from "../pages/Blog";
 import Reports from "../pages/Reports";
 import Students from "../pages/Students";
 import Profile from "../pages/Profile";
+import ErrorPage from "../pages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
   {
     path: "/rasetpassword",
     element: <RasetPassword />,
+  },
+  {
+    path: "*",
+    element: <ErrorPage />,
   },
   {
     path: "/",

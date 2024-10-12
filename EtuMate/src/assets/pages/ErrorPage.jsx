@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-export default function RasetPassword() {
+export default function ErrorPage() {
     return (
         <div className="flex items-center justify-center h-screen bg-gray-900 text-white overflow-hidden">
             <div className="text-center">
@@ -8,8 +8,8 @@ export default function RasetPassword() {
                 <p className="text-lg">
                     Oops!, the page you looking for does not exist
                 </p>
-                <Link className="font-medium block uppercase bg-blue-500 w-fit mx-auto cursor-pointer mt-6 py-2 px-3 rounded-full" to="/">
-                    Sign In Page
+                <Link className="font-medium uppercase block bg-blue-500 w-fit mx-auto cursor-pointer mt-6 py-2 px-3 rounded-full" to="/dashboard">
+                    Home page
                 </Link>
             </div>
         </div>
