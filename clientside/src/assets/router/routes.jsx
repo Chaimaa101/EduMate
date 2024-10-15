@@ -9,6 +9,7 @@ import Reports from "../pages/Reports";
 import Students from "../pages/Students";
 import Profile from "../pages/Profile";
 import ErrorPage from "../pages/ErrorPage";
+import Questionswer from "../pages/Questionswer";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
       {
         path: "reports",
         element: <Reports />,
+      },
+      {
+        path: "q&a",
+        element: <Questionswer />,
       },
       {
         path: "blogs",

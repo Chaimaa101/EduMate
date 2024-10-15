@@ -38,7 +38,7 @@ function PlatformBlogs() {
                 backgroundColor: "rgba(31,41,55,0.8)",
                 borderColor: "#4b5563",
               }}
-              itemStyle={{ color: "#E5E7EB" }}
+              itemStyle={{ color: "#d41f79" }}
             />
             <Bar dataKey="blogs" fill="#d41f79" />
           </BarChart>
