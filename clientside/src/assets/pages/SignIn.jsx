@@ -22,22 +22,24 @@ function SignIn() {
       setIsColse(!isColse);
     }
   };
-  // This for validat Sign in
-const handleSubmit = async (event) => {
-  event.preventDefault();
 
-  try {
-    await axiosClient.get('/sanctum/csrf-cookie'); // Initialize CSRF cookie
-    const response = await axiosClient.post('/login', { email, password });
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     
-    if (response.status === 204) {
-      navigate("/dashboard"); // Redirect on success
+    try {
+      await axiosClient.get('/sanctum/csrf-cookie');
+      const response = await axiosClient.post('/api/login', { email, password });
+      if (response.status === 204) {
+        navigate('/dashboard'); // Redirect on success
+      }
+    } catch (error) {
+      if (error.response) {
+        setErrors(error.response.data.errors || [error.response.data.message]);
+      } else {
+        setErrors(['Network error. Please try again later.']);
+      }
     }
-  } catch (error) {
-    console.error(error);
-    setServerError("Network Error: Please try again.");
-  }
-};
+  };
 
   const validate = () => {
     const error = {};
