@@ -2,6 +2,7 @@ import { Eye, EyeClosed } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { axiosClient } from "../../api/axios";
 
 function SignIn() {
   const [isColse, setIsColse] = useState(false);
@@ -21,13 +22,23 @@ function SignIn() {
       setIsColse(!isColse);
     }
   };
-  // This for validat Sign in
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const erorrs = validate();
-    setErrors(erorrs);
-    // for inter to dashbord page
-    navigate("/dashboard");
+    
+    try {
+      await axiosClient.get('/sanctum/csrf-cookie');
+      const response = await axiosClient.post('/api/login', { email, password });
+      if (response.status === 204) {
+        navigate('/dashboard'); // Redirect on success
+      }
+    } catch (error) {
+      if (error.response) {
+        setErrors(error.response.data.errors || [error.response.data.message]);
+      } else {
+        setErrors(['Network error. Please try again later.']);
+      }
+    }
   };
 
   const validate = () => {
