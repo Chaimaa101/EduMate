@@ -13,7 +13,7 @@ function SignIn() {
   // This is for show Password
   const toggleEye = () => {
     const passwordInput = document.querySelector("#password");
-    console.log(passwordInput.type);
+    console.log(passwordInput.value);
     if (passwordInput.type === "password") {
       passwordInput.type = "text";
       setIsColse(!isColse);
@@ -25,21 +25,21 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // try {
+    //   // Get CSRF cookie from Sanctum
+    //   await axiosClient.get("/sanctum/csrf-cookie");
+    //   await axiosClient.post("/api/login", {
+    //     email,
+    //     password,
+    //   }).then(({data}) =>{
+    //     console.log(data.message);
+    //   })
     
-    try {
-      await axiosClient.get('/sanctum/csrf-cookie');
-      const response = await axiosClient.post('/api/login', { email, password });
-      if (response.status === 204) {
-        navigate('/dashboard'); // Redirect on success
-      }
-    } catch (error) {
-      if (error.response) {
-        setErrors(error.response.data.errors || [error.response.data.message]);
-      } else {
-        setErrors(['Network error. Please try again later.']);
-      }
-    }
+
+        navigate("/dashboard");
+    
   };
+
 
   const validate = () => {
     const error = {};
@@ -79,7 +79,7 @@ function SignIn() {
         <p className="text-sm text-center text-gray-600 mb-5">
           Enter your credentials to access your account
         </p>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-y-3">
+        <form onSubmit={handleSubmit} method="POST" className="flex flex-col gap-y-3">
           <div className="flex flex-col">
             <label
               className="font-semibold text-sm text-gray-500 mb-1"
@@ -91,7 +91,8 @@ function SignIn() {
               className={`${
                 errors.email && "border-red-500"
               }  border-gray-300  w-full border-[1.5px]   p-2 rounded-sm text-gray-400 text-sm outline-none focus:border-2  placeholder:text-sm `}
-              type="text"
+              type="email"
+              value={email}
               name="email"
               id="email"
               placeholder="Enter your email"
@@ -117,6 +118,7 @@ function SignIn() {
                 } placeholder:text-sm `}
                 type="password"
                 name="password"
+                value={password}
                 id="password"
                 placeholder="Enter your Password"
                 onChange={(e) => setPassword(e.target.value)}
