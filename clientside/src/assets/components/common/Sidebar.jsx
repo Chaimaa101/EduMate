@@ -2,7 +2,6 @@ import {
     LayoutDashboard,
     LibraryBig,
     GraduationCap,
-    FileText,
     Menu,
     UserCircle2,
     FilePen,
@@ -16,7 +15,6 @@ const SIDBAR_ITEMS = [
     { name: "Dashboard", icon: LayoutDashboard, path: "dashboard" },
     { name: "Courses", icon: LibraryBig, path: "courses" },
     { name: "Students", icon: GraduationCap, path: "students" },
-    { name: "Reports", icon: FileText, path: "reports" },
     {
         name: "Q&A",
         icon: MessageCircleQuestion,
@@ -39,19 +37,22 @@ export default function Sidebar() {
             } `}
             animate={{ width: isSideBarOpen ? 240 : 90 }}
         >
-            <div className="h-full bg-gray-800 bg-opacity-50 backdrop-blur-md p-4 flex flex-col border-r border-gray-700">
+            <div className="h-full bg-gray-200 dark:bg-gray-800 bg-opacity-50 backdrop-blur-md p-4 flex flex-col border-r border-gray-300 dark:border-gray-700">
                 <motion.button
-                    className="ml-2 p-2 rounded-full hover:bg-gray-700 max-w-fit transition-colors"
+                    className="ml-2 p-2 rounded-full hover:bg-gray-300 dark:hover:bg-gray-700 max-w-fit transition-colors"
                     onClick={() => setIseSidebarOpen(!isSideBarOpen)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <Menu size={24} />
+                    <Menu
+                        size={24}
+                        className="text-gray-800 dark:text-gray-200"
+                    />
                 </motion.button>
                 <nav className="mt-8 flex-grow">
                     {SIDBAR_ITEMS?.map((item) => (
                         <NavLink id="link" key={item.path} to={item.path}>
-                            <motion.div className="flex items-center gap-2 p-4  text-sm font-medium rounded-lg hover:bg-blue-500 hover:bg-opacity-20 transition-colors mb-2">
+                            <motion.div className="flex items-center gap-2 p-4 text-sm font-medium rounded-lg hover:bg-blue-500 hover:bg-opacity-20 transition-colors mb-2">
                                 <item.icon
                                     size={24}
                                     className="text-blue-600"
@@ -59,7 +60,7 @@ export default function Sidebar() {
                                 <AnimatePresence>
                                     {isSideBarOpen && (
                                         <motion.span
-                                            className="whitespace-nowrap"
+                                            className="whitespace-nowrap text-gray-800 dark:text-gray-200"
                                             initial={{ opacity: 0, width: 0 }}
                                             animate={{
                                                 opacity: 1,
