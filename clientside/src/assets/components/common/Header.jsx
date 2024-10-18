@@ -1,48 +1,38 @@
+
 import { LogOut, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
 function Header({ title }) {
     const [showEmail, setShowEmail] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
-    const navigate = useNavigate();
-
-    useEffect(() => {
+    const [darkMode, setDarkMode] = useState(() => {
         const userPref = localStorage.getItem("theme");
         const systemPrefersDark = window.matchMedia(
             "(prefers-color-scheme: dark)"
         ).matches;
-        if (userPref) {
-            // Use the theme saved in localStorage
-            if (userPref === "dark") {
-                document.documentElement.classList.add("dark");
-                setDarkMode(true);
-            } else {
-                document.documentElement.classList.remove("dark");
-                setDarkMode(false);
-            }
-        } else if (systemPrefersDark) {
-            // Apply system dark mode preference
-            document.documentElement.classList.add("dark");
-            setDarkMode(true);
-        } else {
-            document.documentElement.classList.remove("dark");
-            setDarkMode(false);
-        }
-    }, []);
+        return userPref ? userPref === "dark" : systemPrefersDark;
+    });
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", darkMode);
+        localStorage.setItem("theme", darkMode ? "dark" : "light");
+    }, [darkMode]);
 
     const toggleDarkMode = () => {
-        setDarkMode((darkMode) => !darkMode);
-        // console.log(darkMode);
+        setDarkMode((prev) => !prev);
+    };
 
-        if (darkMode) {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        } else {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        }
+    const handleLogout = () => {
+        setShowAlert(true);
+        setShowEmail(false);
+    };
+
+    const confirmLogout = () => {
+        navigate("/");
     };
 
     return (
@@ -60,7 +50,7 @@ function Header({ title }) {
                         {darkMode ? <Sun size={30} /> : <Moon size={30} />}
                     </button>
                     <div
-                        onClick={() => setShowEmail(!showEmail)}
+                        onClick={() => setShowEmail((prev) => !prev)}
                         className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
                     >
                         <span className="font-semibold text-lg text-white">
@@ -68,65 +58,53 @@ function Header({ title }) {
                         </span>
                     </div>
                 </div>
-                <div
-                    id="logout"
-                    className={`absolute py-4 px-4 top-[70px] right-4 bg-gray-200 dark:bg-gray-800 z-20 border-2 border-gray-300 dark:border-white rounded-md
-        ${showEmail ? "block" : "hidden"}
-        `}
-                >
-                    <div className="border-b pb-3 border-gray-300 dark:border-gray-600">
-                        <p className="font-bold text-gray-800 dark:text-white">
-                            Younes Boukrim
+                {showEmail && (
+                    <div className="absolute py-4 px-4 top-[70px] right-4 bg-gray-200 dark:bg-gray-800 z-20 border-2 border-gray-300 dark:border-white rounded-md">
+                        <div className="border-b pb-3 border-gray-300 dark:border-gray-600">
+                            <p className="font-bold text-gray-800 dark:text-white">
+                                Younes Boukrim
+                            </p>
+                            <small className="font-semibold text-gray-600 dark:text-gray-400">
+                                younes@gmail.com
+                            </small>
+                        </div>
+                        <button
+                            onClick={handleLogout}
+                            className="flex justify-left items-center gap-1 text-blue-500 mt-2"
+                        >
+                            Logout
+                            <LogOut size={15} style={{ marginTop: "3px" }} />
+                        </button>
+                    </div>
+                )}
+            </div>
+            {showAlert && (
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-70 z-20">
+                    <div className="bg-gray-200 dark:bg-gray-800 py-4 px-8 rounded-lg shadow-lg z-[10000]">
+                        <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">
+                            Confirm logout
+                        </h2>
+                        <hr className="border-gray-300 dark:border-gray-600" />
+                        <p className="text-gray-800 dark:text-white py-2">
+                            Are you sure you want to log out?
                         </p>
-                        <small className="font-semibold text-gray-600 dark:text-gray-400">
-                            younes@gmail.com
-                        </small>
-                    </div>
-                    <button
-                        onClick={() => {
-                            setShowAlert(true);
-                            setShowEmail(false);
-                        }}
-                        className="flex justify-left items-center gap-1 text-blue-500 mt-2"
-                    >
-                        Logout
-                        <LogOut size={15} style={{ marginTop: "3px" }} />
-                    </button>
-                </div>
-            </div>
-            <div
-                className={`fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-70 z-20 ${
-                    showAlert ? "block" : "hidden"
-                }`}
-            >
-                <div className="bg-gray-200 dark:bg-gray-800 py-4 px-8 rounded-lg shadow-lg z-[10000]">
-                    <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-white">
-                        Confirm logout
-                    </h2>
-                    <hr className="border-gray-300 dark:border-gray-600" />
-                    <p className="text-gray-800 dark:text-white py-2">
-                        Are you sure you want to log out?
-                    </p>
-                    <div className="flex justify-end mt-4">
-                        <button
-                            className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                                navigate("/");
-                            }}
-                        >
-                            Yes
-                        </button>
-                        <button
-                            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => {
-                                setShowAlert(false);
-                            }}
-                        >
-                            No
-                        </button>
+                        <div className="flex justify-end mt-4">
+                            <button
+                                className="mr-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={confirmLogout}
+                            >
+                                Yes
+                            </button>
+                            <button
+                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => setShowAlert(false)}
+                            >
+                                No
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </>
     );
 }
