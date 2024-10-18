@@ -1,11 +1,49 @@
-import { LogOut } from "lucide-react";
-import { useState } from "react";
+import { LogOut, Moon, Sun } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // eslint-disable-next-line react/prop-types
 function Header({ title }) {
     const [showEmail, setShowEmail] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [darkMode, setDarkMode] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const userPref = localStorage.getItem("theme");
+        const systemPrefersDark = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        ).matches;
+        if (userPref) {
+            // Use the theme saved in localStorage
+            if (userPref === "dark") {
+                document.documentElement.classList.add("dark");
+                setDarkMode(true);
+            } else {
+                document.documentElement.classList.remove("dark");
+                setDarkMode(false);
+            }
+        } else if (systemPrefersDark) {
+            // Apply system dark mode preference
+            document.documentElement.classList.add("dark");
+            setDarkMode(true);
+        } else {
+            document.documentElement.classList.remove("dark");
+            setDarkMode(false);
+        }
+    }, []);
+
+    const toggleDarkMode = () => {
+        setDarkMode((darkMode) => !darkMode);
+        // console.log(darkMode);
+
+        if (darkMode) {
+            document.documentElement.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        } else {
+            document.documentElement.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        }
+    };
 
     return (
         <>
@@ -13,11 +51,22 @@ function Header({ title }) {
                 <p className="font-semibold text-lg text-gray-800 dark:text-white">
                     {title}
                 </p>
-                <div
-                    onClick={() => setShowEmail(!showEmail)}
-                    className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
-                >
-                    <span className="font-semibold text-lg text-white">YB</span>
+                <div className="flex gap-5 items-center">
+                    <button
+                        id="theme-toggle"
+                        className="text-gray-800 dark:text-gray-200"
+                        onClick={toggleDarkMode}
+                    >
+                        {darkMode ? <Sun size={30} /> : <Moon size={30} />}
+                    </button>
+                    <div
+                        onClick={() => setShowEmail(!showEmail)}
+                        className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
+                    >
+                        <span className="font-semibold text-lg text-white">
+                            YB
+                        </span>
+                    </div>
                 </div>
                 <div
                     id="logout"
