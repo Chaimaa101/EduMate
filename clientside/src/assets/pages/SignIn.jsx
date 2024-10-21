@@ -25,7 +25,7 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-        navigate("/dashboard");
+      navigate("/dashboard");
     
   };
 
@@ -49,7 +49,7 @@ function SignIn() {
     }
     return error;
   };
-  
+
   return (
     <div className="w-screen h-screen bg-gray-900 flex justify-center items-center">
       <motion.div

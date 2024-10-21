@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class StudentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+      
     }
 
     /**
@@ -28,32 +28,29 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-
         $infos = $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
             'birthday' => 'required'
         ]);
-        Student::create($request->post());
+        User::create($request->post());
         return response()->json([
-            'message' =>'Item added successfully'
+            'message' => 'User added successfully'
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show(User $user)
     {
-        return response()->json([
-        'student' => $student
-       ]) ;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Student $student)
+    public function edit(User $user)
     {
         //
     }
@@ -61,27 +58,24 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, User $user)
     {
         $request->validate([
-            'firstName' =>'required',
-            'lastName' =>'required',
-            'birthday' =>'required'
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'birthday' => 'required'
         ]);
-        $student->fill($request->post())->update();
+        $user->fill($request->post())->update();
         return response()->json([
-            'message' => 'Item updated successfully'
+            'message' => 'Indormation updated successfully'
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy(User $user)
     {
-        $student->delete();
-        return response()->json([
-            'message' => 'Item deleted successfully'
-        ]);
+        //
     }
 }
