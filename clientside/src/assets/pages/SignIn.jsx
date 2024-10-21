@@ -1,8 +1,8 @@
 import { Eye, EyeClosed } from "lucide-react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { axiosClient } from "../../api/axios";
+// import { axiosClient } from "../../api/axios";
 
 function SignIn() {
   const [isColse, setIsColse] = useState(false);
@@ -25,20 +25,18 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-      navigate("/dashboard");
+        navigate("/dashboard");
     
   };
 
 
-  const validate = () => {
-    const error = {};
-    if (!email) {
-      error.email = "Email is Required";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      error.email = "Email not Matched";
-    } else {
-      error.email = "";
-    }
+    const validate = () => {
+        const error = {};
+        if (!email) {
+            error.email = "Email is Required";
+        } else if (email !== "example@domain.com") {
+            error.email = "Email must be example@domain.com";
+        }
 
     if (!password) {
       error.password = "Password is Required";
@@ -49,7 +47,7 @@ function SignIn() {
     }
     return error;
   };
-
+  
   return (
     <div className="w-screen h-screen bg-gray-900 flex justify-center items-center">
       <motion.div

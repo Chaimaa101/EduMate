@@ -2,7 +2,7 @@ import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const STUDENTS_DATA = [
     {
@@ -50,6 +50,7 @@ function Students() {
     const [phone, isPhone] = useState("");
     const [enrollNumber, isEnrollNumber] = useState("");
     const [date, isDate] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const addStudent = (event) => {
         event.preventDefault();
@@ -112,6 +113,13 @@ function Students() {
         return error;
     };
 
+    const filterStudents = useMemo(() => {
+        return STUDENTS_DATA.filter((student) => {
+            return student.fullName
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+        });
+    }, [searchTerm]);
     return (
         <>
             <div className="flex-1 relative overflow-auto z-10">
@@ -128,6 +136,10 @@ function Students() {
                                 type="text"
                                 className="bg-transparent text-gray-200 placeholder-gray-400 outline-none w-full  dark:text-gray-300 dark:placeholder-gray-500"
                                 placeholder="STUDENT FULL NAME"
+                                value={searchTerm}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                }}
                             />
                             <Search className="text-gray-200 dark:text-gray-300" />
                         </div>
@@ -190,7 +202,7 @@ function Students() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {STUDENTS_DATA?.map((student, index) => (
+                                {filterStudents?.map((student, index) => (
                                     <tr
                                         key={index}
                                         className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-nowrap"
