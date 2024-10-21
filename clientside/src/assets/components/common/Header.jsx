@@ -1,4 +1,3 @@
-
 import { LogOut, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -54,7 +53,7 @@ function Header({ title }) {
                         className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
                     >
                         <span className="font-semibold text-lg text-white">
-                            YB
+                            JD
                         </span>
                     </div>
                 </div>

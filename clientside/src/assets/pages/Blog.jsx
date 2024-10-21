@@ -1,8 +1,7 @@
 import Header from "../components/common/Header";
 import { motion } from "framer-motion";
-import { Search } from "lucide-react";
-import { Trash } from "lucide-react";
-import { useState } from "react";
+import { Trash, Search } from "lucide-react";
+import { useMemo, useState } from "react";
 
 const blogPosts = [
     {
@@ -48,14 +47,10 @@ function Blog() {
     const [title, isTitle] = useState("");
     const [imageUrl, isImageUrl] = useState("");
     const [content, isContent] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
     const [tag1, setTag1] = useState("");
     const [tag2, setTag2] = useState("");
     const [tag3, setTag3] = useState("");
-
-    console.log({ title, imageUrl, content, errors });
-    console.log(errors.fullName);
-    console.log(errors.email);
-    console.log(errors.phone);
 
     const addBlog = (event) => {
         event.preventDefault();
@@ -111,6 +106,13 @@ function Blog() {
         return error;
     };
 
+    const filterBlogs = useMemo(() => {
+        // if (!searchTerm) return [];
+        return blogPosts.filter((blog) => {
+            return blog.title.toLowerCase().includes(searchTerm.toLowerCase());
+        });
+    }, [searchTerm]);
+
     return (
         <>
             <div className="flex-1 relative overflow-auto z-10">
@@ -127,6 +129,10 @@ function Blog() {
                                 type="text"
                                 className="bg-transparent text-gray-200 placeholder-gray-400 outline-none w-full  dark:text-gray-300 dark:placeholder-gray-500"
                                 placeholder="BLOG TITLE"
+                                value={searchTerm}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                }}
                             />
                             <Search className="text-gray-200 dark:text-gray-300" />
                         </div>
@@ -147,7 +153,7 @@ function Blog() {
                         id="tableContainer"
                         className="relative overflow-x-auto my-2 py-4  sm:rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4  " // {flex flex-wrap  justify-center items-stretch}
                     >
-                        {blogPosts?.map((blog, index) => (
+                        {filterBlogs?.map((blog, index) => (
                             <div
                                 key={index}
                                 className="group relative max-w-md rounded overflow-hidden shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white dark:bg-gray-800 transition-all duration-300 mx-auto"

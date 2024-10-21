@@ -79,16 +79,16 @@ export default function Profile() {
                     {/* Profile Picture */}
                     <div className="w-20 h-20 bg-blue-500 dark:bg-blue-400 flex items-center justify-center rounded-full cursor-pointer">
                         <span className="font-semibold text-3xl text-white">
-                            YB
+                            JD
                         </span>
                     </div>
 
                     {/* User Name and Email */}
                     <h3 className="font-bold text-3xl text-gray-800 dark:text-white">
-                        Younes Boukrim
+                        John Doe
                     </h3>
                     <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
-                        younes@gmail.com
+                        example@domain.com
                     </p>
                 </motion.div>
             </main>

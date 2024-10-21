@@ -1,7 +1,7 @@
 import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { Search, ShoppingCart, Trash } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 const courses = [
     {
@@ -34,6 +34,7 @@ function Course() {
     const [imageUrl, setImageUrl] = useState("");
     const [content, setContent] = useState("");
     const [price, setPrice] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
 
     const addCourse = (event) => {
         event.preventDefault();
@@ -76,6 +77,12 @@ function Course() {
         return error;
     };
 
+    const filterCouses = useMemo(() => {
+        return courses.filter((course) => {
+            return course.name.toLowerCase().includes(searchTerm.toLowerCase());
+        });
+    }, [searchTerm]);
+
     return (
         <>
             <div className="flex-1 relative overflow-auto z-10">
@@ -90,6 +97,8 @@ function Course() {
                         <div className="w-full md:w-1/2 flex items-center gap-2 px-4 py-2 bg-gray-800 bg-opacity-70 backdrop-blur-md  rounded-xl overflow-hidden border border-gray-700 dark:bg-gray-900 dark:border-gray-600">
                             <input
                                 type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                                 className="bg-transparent text-gray-200 placeholder-gray-400 outline-none w-full  dark:text-gray-300 dark:placeholder-gray-500"
                                 placeholder="COURSE TITLE"
                             />
@@ -112,7 +121,7 @@ function Course() {
                         id="tableContainer"
                         className="relative overflow-x-auto my-2 py-4  sm:rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4  " // {flex flex-wrap  justify-center items-stretch}
                     >
-                        {courses?.map((course, index) => (
+                        {filterCouses?.map((course, index) => (
                             <div
                                 key={index}
                                 className="flex flex-col group relative max-w-md rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 mx-auto transform"
