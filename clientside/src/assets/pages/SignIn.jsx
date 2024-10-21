@@ -1,6 +1,6 @@
 import { Eye, EyeClosed } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { axiosClient } from "../../api/axios";
 
@@ -35,7 +35,40 @@ function SignIn() {
     //     console.log(data.message);
     //   })
     
-
+    // useEffect(()=>{
+    //   fetchUsers();
+    // },[])
+//     const fetchUser =async() =>{
+//       await axios.post("/api/showStudent", formData).then(({data}) =>{
+//         console.log(data.message);
+//         const {firstName,lastName,email}
+//         navigate('/dashbord')
+//       }).catch(({response}) =>{
+//         if(response.status === 442){
+//           console.log(response.data.error)
+//         }else{
+//           console.log(response.data.message)
+//         }
+//       })
+//     }
+// const createStudent = async(e) =>{
+//   e.preventDefault();
+//   const formData = new formData();
+//   formData.apend('firstName',firstName)
+//   formData.apend('lastName',lastName)
+//   formData.apend('email',email)
+//   formData.apend('password',password)
+//     await axios.post("/api/createStudent", formData).then(({data}) =>{
+//         console.log(data.message);
+//         navigate('/dashbord')
+//       }).catch(({response}) =>{
+//         if(response.status === 442){
+//           console.log(response.data.error)
+//         }else{
+//           console.log(response.data.message)
+//         }
+//       })
+// }
         navigate("/dashboard");
     
   };
