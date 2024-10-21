@@ -8,7 +8,7 @@
   top: -20px;
   right: 28px;
   border-width: 10px 10px 10px 10px;
-  border-color: transparent transparent white transparent ;
+  border-color: transparent transparent white transparent;
 }
 
 
@@ -18,7 +18,7 @@ a.active div {
 
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -26,5 +26,19 @@ a.active div {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-[10px] bg-blue-500
+  @apply bg-blue-500
+}
+
+
+
+#tableContainer::-webkit-scrollbar:horizontal {
+  height: 4px;
+}
+
+#tableContainer::-webkit-scrollbar-track:horizontal {
+  height: 4px;
+}
+
+#tableContainer::-webkit-scrollbar-thumb:horizontal {
+  @apply  bg-[#D8D8D8]
 }
