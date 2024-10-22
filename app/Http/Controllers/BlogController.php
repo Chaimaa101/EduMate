@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Blog;
 use App\Http\Requests\StoreBlogRequest;
 use App\Http\Requests\UpdateBlogRequest;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -29,7 +30,28 @@ class BlogController extends Controller
      */
     public function store(StoreBlogRequest $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:255'],
+            'content' => ['required'],
+            'tag1' => ['required'],
+            'tag2' => ['required'],
+            'tag3' => ['nullable'],
+            'image' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webg']
+        ]);
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('public')->put('posts_images', $request->image);
+        }
+        Blog::create([
+            'title' => $request->title,
+            'content' => $request->body,
+            'tag1' => $request->tag1,
+            'tag2' => $request->tag1,
+            'tag3' => $request->tag1,
+            'image' => $path
+        ]);
+        // Post::create(['user_id' => Auth::id(), ...$infos]);
+        return back()->with('success', 'Your post was created');
     }
 
     /**

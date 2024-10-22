@@ -27,6 +27,7 @@ class UserFactory extends Factory
             'firstname' => fake()->name(),
             'lastname' => fake()->name(),
             'birthday' => fake()->date(),
+            'type' => fake()->randomElement(['student', 'teacher'])
         ];
     }
 

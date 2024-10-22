@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const axiosClient = axios.create({
+ const axiosClient = axios.create({
     baseURL: "http://localhost:8000",
     withCredentials: true,
  headers: {
@@ -9,3 +9,4 @@ export const axiosClient = axios.create({
   },
 });
  
+export default axiosClient;

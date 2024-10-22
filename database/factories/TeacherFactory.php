@@ -19,7 +19,7 @@ class TeacherFactory extends Factory
     {
         return [
             'department' => $this->faker->randomElement(['Mathematics', 'Science', 'History']),
-            'user_id' => User::factory(), 
+            'user_id' => User::factory(),
         ];
     }
 }

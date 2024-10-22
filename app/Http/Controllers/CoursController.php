@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cours;
 use App\Http\Requests\StoreCoursRequest;
 use App\Http\Requests\UpdateCoursRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CoursController extends Controller
 {
@@ -29,7 +30,24 @@ class CoursController extends Controller
      */
     public function store(StoreCoursRequest $request)
     {
-        //
+        $request->validate([
+            'title' => ['required', 'max:255'],
+            'content' => ['required'],
+            'price' => ['required','numeric'],
+            'image' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webg']
+        ]);
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('public')->put('posts_images', $request->image);
+        }
+        Cours::create([
+            'title' => $request->title,
+            'content' => $request->body,
+            'price' => $request->price,
+            'image' => $path
+        ]);
+        // Post::create(['user_id' => Auth::id(), ...$infos]);
+        return back()->with('success', 'Your post was created');
     }
 
     /**
