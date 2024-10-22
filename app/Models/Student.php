@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends User
 {
     use HasFactory;
+
+    protected $table = 'students';  
+
+    protected $fillable = ['class', 'user_id'];
+
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -28,7 +28,16 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-    
+
+        $infos = $request->validate([
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'birthday' => 'required'
+        ]);
+        Student::create($request->post());
+        return response()->json([
+            'message' =>'Item added successfully'
+        ]);
     }
 
     /**
@@ -60,6 +69,9 @@ class StudentController extends Controller
             'birthday' =>'required'
         ]);
         $student->fill($request->post())->update();
+        return response()->json([
+            'message' => 'Item updated successfully'
+        ]);
     }
 
     /**
@@ -67,6 +79,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return response()->json([
+            'message' => 'Item deleted successfully'
+        ]);
     }
 }
