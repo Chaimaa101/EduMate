@@ -18,8 +18,15 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            'department' => $this->faker->randomElement(['Mathematics', 'Science', 'History']),
-            'user_id' => User::factory(),
+            'firstname' => $this->faker->name(),
+            'lastname' => $this->faker->name(),
+            'birthday' => $this->faker->date('Y-m-d', '2010-01-01'),
+            'department' => $this->faker->randomElement([
+                'Computer Science',
+                'Mathematics',
+                'Physics',
+                'Biology'
+            ]),
         ];
     }
 }

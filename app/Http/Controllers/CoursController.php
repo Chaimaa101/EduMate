@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cours;
 use App\Http\Requests\StoreCoursRequest;
 use App\Http\Requests\UpdateCoursRequest;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\coursResource;
 
 class CoursController extends Controller
 {
@@ -14,15 +14,8 @@ class CoursController extends Controller
      */
     public function index()
     {
-        //
-    }
+        return coursResource::collection(cours::all());
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -30,24 +23,9 @@ class CoursController extends Controller
      */
     public function store(StoreCoursRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'max:255'],
-            'content' => ['required'],
-            'price' => ['required','numeric'],
-            'image' => ['nullable', 'file', 'max:3000', 'mimes:png,jpg,webg']
-        ]);
-        $path = null;
-        if ($request->hasFile('image')) {
-            $path = Storage::disk('public')->put('posts_images', $request->image);
-        }
-        Cours::create([
-            'title' => $request->title,
-            'content' => $request->body,
-            'price' => $request->price,
-            'image' => $path
-        ]);
-        // Post::create(['user_id' => Auth::id(), ...$infos]);
-        return back()->with('success', 'Your post was created');
+        $infos =  $request->validated();
+        $cours = cours::create($infos);
+        return new coursResource($cours);
     }
 
     /**
@@ -59,19 +37,12 @@ class CoursController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cours $cours)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCoursRequest $request, Cours $cours)
     {
-        //
+        $cours->update($request->validated());
+
     }
 
     /**
@@ -79,6 +50,7 @@ class CoursController extends Controller
      */
     public function destroy(Cours $cours)
     {
-        //
+        $cours->delete();
+        return new coursResource($cours);
     }
 }

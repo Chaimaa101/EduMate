@@ -3,41 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Resources\StudentResource;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() : AnonymousResourceCollection
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return StudentResource::collection(Student::all());
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreStudentRequest $request)
     {
-
-        $infos = $request->validate([
-            'firstName' => 'required',
-            'lastName' => 'required',
-            'birthday' => 'required'
-        ]);
-        Student::create($request->post());
-        return response()->json([
-            'message' =>'Item added successfully'
-        ]);
+        $infos =  $request->validated();
+        $student = Student::create($infos);
+        return new StudentResource($student);
     }
 
     /**
@@ -45,33 +34,23 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $students = Student::find($student->id);
+        if(!$students){
+            return response()->json([
+                'message' =>'Student not found'
+            ],404);
+        }
         return response()->json([
-        'student' => $student
-       ]) ;
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        //
+            'students' =>$students
+        ],200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(UpdateStudentRequest $request, Student $student)
     {
-        $request->validate([
-            'firstName' =>'required',
-            'lastName' =>'required',
-            'birthday' =>'required'
-        ]);
-        $student->fill($request->post())->update();
-        return response()->json([
-            'message' => 'Item updated successfully'
-        ]);
+        $student->update($request->validated());
     }
 
     /**
@@ -80,8 +59,6 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        return response()->json([
-            'message' => 'Item deleted successfully'
-        ]);
+        return new StudentResource($student);
     }
 }

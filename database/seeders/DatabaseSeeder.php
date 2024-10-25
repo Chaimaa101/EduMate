@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Blog;
+use App\Models\Cours;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -16,14 +18,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        
         Student::factory(20)->create();
         Teacher::factory(20)->create();
+        Blog::factory(20)->create();
+        Cours::factory(20)->create();
 
-
-        User::factory()->create([
-            'firstname' => 'chaimaa',
-            'lastname' => 'afkir',
-            'birthday' => '2003-03-09'
-        ]);
     }
 }
