@@ -17,7 +17,9 @@ class CoursFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => $this->faker->sentence(),
+            'content' => $this->faker->paragraph(5),
+            'price' => $this->faker->randomFloat(),
         ];
     }
 }

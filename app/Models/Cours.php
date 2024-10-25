@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cours extends Model
 {
     use HasFactory;
-    protected $guarded;
+
+    protected $fillable = ['title', 'content', 'price', 'image'];
+
 }

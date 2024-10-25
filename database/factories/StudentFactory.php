@@ -18,8 +18,11 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'class' => $this->faker->randomElement(['Other','License', 'Master']),
-            'user_id' => User::factory(), 
+            'firstname' => $this->faker->name(),
+            'lastname' => $this->faker->name(),
+            'birthday' => $this->faker->date('Y-m-d', '2010-01-01'), 
+            'class' => $this->faker->regexify('[1-12]-[A-E]'), 
+            'dateAdmission' => $this->faker->date('Y-m-d'),
         ];
     }
 }

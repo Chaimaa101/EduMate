@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('tag1');
             $table->string('tag2');
             $table->string('tag3');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
