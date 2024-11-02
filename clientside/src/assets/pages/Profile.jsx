@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import Header from "../components/common/Header";
-import axiosClient from "../../api/axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -18,9 +17,7 @@ export default function Profile() {
         formData.apend('lastName', lastName)
         formData.apend('birthday', birthday)
   const navigate = useNavigate();
-
-      await axiosClient.get("/sanctum/csrf-cookie");
-        await axiosClient.post("/api/createUser", formData).then(({ data }) => {
+        await axios.post("/api/teachers", formData).then(({ data }) => {
             console.log(data.message);
             navigate('/dashbord')
         }).catch(({ response }) => {
@@ -71,7 +68,7 @@ export default function Profile() {
                                 <input
                                     className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
                                     type="text"
-                                    id="lastName"
+                                    id="lastname"
                                     name="lastname"
                                 />
                             </div>
@@ -112,13 +109,13 @@ export default function Profile() {
                         {/* Profile Picture */}
                         <div className="w-20 h-20 bg-blue-500 dark:bg-blue-400 flex items-center justify-center rounded-full cursor-pointer">
                             <span className="font-semibold text-3xl text-white">
-                                JD
+                                {charAt(teacher.firstname)+ charAt(teacher.lastname)}
                             </span>
                         </div>
 
                         {/* User Name and Email */}
                         <h3 className="font-bold text-3xl text-gray-800 dark:text-white">
-                            John Doe
+                            {teacher.firstname + teacher.lastname}
                         </h3>
                         <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
                             example@domain.com

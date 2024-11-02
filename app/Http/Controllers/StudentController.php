@@ -34,15 +34,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $students = Student::find($student->id);
-        if(!$students){
-            return response()->json([
-                'message' =>'Student not found'
-            ],404);
-        }
-        return response()->json([
-            'students' =>$students
-        ],200);
+        return Student::findOrFail($student->id);
     }
 
     /**

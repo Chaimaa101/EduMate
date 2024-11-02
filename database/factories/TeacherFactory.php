@@ -20,7 +20,7 @@ class TeacherFactory extends Factory
         return [
             'firstname' => $this->faker->name(),
             'lastname' => $this->faker->name(),
-            'birthday' => $this->faker->date('Y-m-d', '2010-01-01'),
+            'phone' => $this->faker->phoneNumber(),
             'department' => $this->faker->randomElement([
                 'Computer Science',
                 'Mathematics',

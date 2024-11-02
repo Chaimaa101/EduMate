@@ -33,7 +33,7 @@ class CoursController extends Controller
      */
     public function show(Cours $cours)
     {
-        //
+        return Cours::findOrFail($cours->id);
     }
 
     /**

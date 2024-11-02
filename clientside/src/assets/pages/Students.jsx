@@ -2,81 +2,87 @@ import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 
-const STUDENTS_DATA = [
-    {
-        fullName: "Sarah Thompson",
-        email: "sarah.thompson@email.com",
-        phone: "+1-555-123-4567",
-        enrollNumber: "20231001",
-        dataOfAdmission: "2023-09-01",
-    },
-    {
-        fullName: "John Miller",
-        email: "john.miller@email.com",
-        phone: "+1-555-345-6789",
-        enrollNumber: "20231002",
-        dataOfAdmission: "2023-09-10",
-    },
-    {
-        fullName: "Michael Anderson",
-        email: "michael.anderson@email.com",
-        phone: "+1-555-456-7890",
-        enrollNumber: "20231003",
-        dataOfAdmission: "2023-09-12",
-    },
-    {
-        fullName: "Jessica Brown",
-        email: "jessica.brown@email.com",
-        phone: "+1-555-567-8901",
-        enrollNumber: "20231004",
-        dataOfAdmission: "2023-09-15",
-    },
-    {
-        fullName: "Emily Johnson",
-        email: "emily.johnson@email.com",
-        phone: "+1-555-345-6789",
-        enrollNumber: "20231005",
-        dataOfAdmission: "2023-10-30",
-    },
-];
 
 function Students() {
     const [showForm, isShowForm] = useState(false);
     const [errors, setErrors] = useState([]);
-    const [fullName, isFullName] = useState("");
-    const [email, isEmail] = useState("");
-    const [phone, isPhone] = useState("");
-    const [enrollNumber, isEnrollNumber] = useState("");
-    const [date, isDate] = useState("");
+    const [firstname, setfirstname] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [phone, setPhone] = useState("");
+    const [dateAdmission, setDate] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+    const [students, setStudents] = useState([]);
 
-    const addStudent = (event) => {
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/students');
+            setStudents(response.data.data);
+            console.log(response);
+        } catch (error) {
+            console.error('Error fetching students:', error);
+        }
+    };
+
+    const deleteStudent = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/students/${id}`);
+            console.log('Student deleted successfully');
+            fetchStudents();
+        } catch (error) {
+            console.error('Error deleting student:', error);
+        }
+    };
+
+    const addStudent = async (event) => {
         event.preventDefault();
         const errors = addStudentValidate();
-        setErrors(errors);
+        setErrors(errors);        
+            try {
+                const studentData = {
+                    firstname,
+                    lastname,
+                    phone,
+                    dateAdmission,
+                };
+                const res = await axios.post('http://localhost:8000/api/students', studentData);
+                console.log("New Student Added:", res.data.data);
+                fetchStudents();
+
+                setfirstname('');
+                setlastname('');
+                setPhone('');
+                setDate('');
+            } catch (error) {
+                console.error('Error creating Student:', error);
+            }
     };
+
+    useEffect(() => {
+        fetchStudents();
+    }, []);
 
     const addStudentValidate = () => {
         const error = {};
 
         // Full Name validation
-        if (!fullName) {
-            error.fullName = "Full Name is Required";
-        } else if (fullName.length < 6) {
-            error.fullName = "Full Name must be at least 6 characters";
+        if (!firstname) {
+            error.firstname = "First Name is Required";
+        } else if (firstname.length < 6) {
+            error.firstname = "First Name must be at least 6 characters";
         } else {
-            error.fullName = "";
+            error.firstname = "";
         }
 
-        // Email validation
-        if (!email) {
-            error.email = "Email is Required";
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            error.email = "Invalid Email Format";
+        // lastname validation
+        if (!lastname) {
+            error.lastname = "Last Name is Required";
+        } else if (lastname.length < 6) {
+            error.lastnameame = "Last Name must be at least 6 characters";
         } else {
-            error.email = "";
+            error.lastname = "";
         }
 
         // Phone number validation
@@ -88,44 +94,37 @@ function Students() {
             error.phone = "";
         }
 
-        // Enroll Number validation
-        if (!enrollNumber) {
-            error.enrollNumber = "Enroll Number is Required";
-        } else if (!/^\d{8}$/.test(enrollNumber)) {
-            error.enrollNumber = "Enroll Number must be 8 digits";
-        } else {
-            error.enrollNumber = "";
-        }
 
-        // Date of Admission validation
-        if (!date) {
-            error.date = "Date of Admission is Required";
+        // Date of DateAdmission validation
+        if (!dateAdmission) {
+            error.dateAdmission = "Date of Admission is Required";
         } else {
-            const admissionDate = new Date(date);
+            const admissionDate = new Date(dateAdmission);
             const currentDate = new Date();
+
             if (admissionDate > currentDate) {
-                error.date = "Date of Admission cannot be in the future";
+                error.dateAdmission = "Date of Admission cannot be in the future";
             } else {
-                error.date = "";
+                error.dateAdmission = "";
             }
         }
 
         return error;
     };
 
-    const filterStudents = useMemo(() => {
-        return STUDENTS_DATA.filter((student) => {
-            return student.fullName
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase());
-        });
-    }, [searchTerm]);
+    const filteredStudents = useMemo(() => {
+        return Array.isArray(students) ?
+            students.filter((student) =>
+                student.firstname.toLowerCase().includes(searchTerm.toLowerCase())
+            ) : [];
+    }, [students, searchTerm]);
+
     return (
         <>
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Students"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-                    <motion.div
+                    §                <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
@@ -167,26 +166,27 @@ function Students() {
                                         scope="col"
                                         className="px-6 py-3 text-nowrap"
                                     >
-                                        Full Name
+                                        Id
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-nowrap"
                                     >
-                                        Email
+                                        First Name
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-nowrap"
                                     >
-                                        Phone
+                                        Last Name
                                     </th>
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-nowrap"
                                     >
-                                        Enroll Number
+                                        phone
                                     </th>
+
                                     <th
                                         scope="col"
                                         className="px-6 py-3 text-nowrap"
@@ -202,48 +202,58 @@ function Students() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {filterStudents?.map((student, index) => (
-                                    <tr
-                                        key={index}
-                                        className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-nowrap"
-                                    >
-                                        <th
-                                            scope="row"
-                                            className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                {filteredStudents.length > 0 ? (
+                                    filteredStudents.map((student, index) => (
+                                        <tr
+                                            key={index}
+                                            className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 text-nowrap"
                                         >
-                                            {student.fullName}
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            {student.email}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            7305477760
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {student.phone}
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            {student.dataOfAdmission}
-                                        </td>
-                                        <td className="px-6 py-4 flex items-center gap-2">
-                                            <motion.a
-                                                onClick={() => {
-                                                    isShowForm(true);
-                                                }}
-                                                whileTap={{ scale: 0.85 }}
-                                                className="text-blue-500 hover:text-gray-500"
+                                            <td
+                                                scope="row"
+                                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                            >{index + 1}</td>
+                                            <td
+                                                scope="row"
+                                                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                             >
-                                                <Pencil size={20} />
-                                            </motion.a>
-                                            <motion.a
-                                                whileTap={{ scale: 0.85 }}
-                                                className="text-blue-500 hover:text-gray-500"
-                                            >
-                                                <Trash size={20} />
-                                            </motion.a>
+                                                {student.firstname}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {student.lastname}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {student.phone}
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                {student.dateAdmission}
+                                            </td>
+                                            <td className="px-6 py-4 flex items-center gap-2">
+                                                <motion.a
+                                                    onClick={() => {
+                                                        isShowForm(true);
+                                                    }}
+                                                    whileTap={{ scale: 0.85 }}
+                                                    className="text-blue-500 hover:text-gray-500"
+                                                >
+                                                    <Pencil size={20} />
+                                                </motion.a>
+                                                <motion.a
+                                                    onClick={() => deleteStudent(student.id)}
+                                                    whileTap={{ scale: 0.85 }}
+                                                    className="text-blue-500 hover:text-gray-500"
+                                                >
+                                                    <Trash size={20} />
+                                                </motion.a>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6" className="text-center py-4">
+                                            No students found.
                                         </td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </motion.div>
@@ -253,9 +263,8 @@ function Students() {
                 onClick={() => {
                     isShowForm(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
-                    showForm ? "block" : "hidden"
-                }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showForm ? "block" : "hidden"
+                    }`}
             ></div>
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
@@ -268,51 +277,53 @@ function Students() {
                     {/** Full Name Field **/}
                     <div>
                         <label
-                            htmlFor="fullname"
+                            htmlFor="firstname"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
-                            Full Name
+                            First Name
                         </label>
                         <input
                             type="text"
-                            id="fullname"
-                            name="fullname"
+                            id="firstname"
+                            name="firstname"
+                            value={firstname}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-                ${errors.fullName && "border-red-500 dark:border-red-500"} 
+                ${errors.firstname && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="John Doe"
-                            onChange={(e) => isFullName(e.target.value)}
+                            onChange={(e) => setfirstname(e.target.value)}
                         />
-                        {errors.fullName && (
+                        {errors.firstname && (
                             <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.fullName}
+                                {errors.firstname}
                             </p>
                         )}
                     </div>
 
-                    {/** Email Field **/}
+                    {/** lastname Field **/}
                     <div>
                         <label
-                            htmlFor="email"
+                            htmlFor="lastname"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
-                            Email
+                            Last Name
                         </label>
                         <input
-                            type="email"
-                            id="email"
-                            name="email"
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            value={lastname}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-                ${errors.email && "border-red-500 dark:border-red-500"} 
+                ${errors.lastname && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="you@example.com"
-                            onChange={(e) => isEmail(e.target.value)}
+                            onChange={(e) => setlastname(e.target.value)}
                         />
-                        {errors.email && (
+                        {errors.lastname && (
                             <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.email}
+                                {errors.lastname}
                             </p>
                         )}
                     </div>
@@ -329,42 +340,17 @@ function Students() {
                             type="tel"
                             id="phone"
                             name="phone"
+                            value={phone}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.phone && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="+123456789"
-                            onChange={(e) => isPhone(e.target.value)}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                         {errors.phone && (
                             <p className="text-red-500 text-sm font-normal pl-1">
                                 {errors.phone}
-                            </p>
-                        )}
-                    </div>
-
-                    {/** Enroll Number Field **/}
-                    <div>
-                        <label
-                            htmlFor="enroll"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                            Enroll Number
-                        </label>
-                        <input
-                            type="text"
-                            id="enroll"
-                            name="enroll"
-                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-                ${errors.enrollNumber && "border-red-500 dark:border-red-500"} 
-                bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
-                focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            placeholder="20231001"
-                            onChange={(e) => isEnrollNumber(e.target.value)}
-                        />
-                        {errors.enrollNumber && (
-                            <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.enrollNumber}
                             </p>
                         )}
                     </div>
@@ -380,12 +366,13 @@ function Students() {
                         <input
                             type="date"
                             id="admission"
-                            name="admission"
+                            name="dateAdmission"
+                            value={dateAdmission}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.date && "border-red-500 dark:border-red-500"} 
                 text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            onChange={(e) => isDate(e.target.value)}
+                            onChange={(e) => setDate(e.target.value)}
                         />
                         {errors.date && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -409,4 +396,4 @@ function Students() {
     );
 }
 
-export default Students;
+export default Students; 

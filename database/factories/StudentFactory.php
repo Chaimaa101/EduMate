@@ -20,8 +20,7 @@ class StudentFactory extends Factory
         return [
             'firstname' => $this->faker->name(),
             'lastname' => $this->faker->name(),
-            'birthday' => $this->faker->date('Y-m-d', '2010-01-01'), 
-            'class' => $this->faker->regexify('[1-12]-[A-E]'), 
+            'phone' => $this->faker->phoneNumber(), 
             'dateAdmission' => $this->faker->date('Y-m-d'),
         ];
     }

@@ -1,46 +1,68 @@
 import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { Search, ShoppingCart, Trash } from "lucide-react";
-import { useMemo, useState } from "react";
-
-const courses = [
-    {
-        name: "Mastering Web Development",
-        imgUrl: "https://aptlearn.io/wp-content/uploads/2022/11/html_css_for_web_dev_final1.png",
-        description:
-            "Learn how to build professional websites with HTML, CSS, and JavaScript.",
-        price: "99",
-    },
-    {
-        name: "Data Science for Beginners",
-        imgUrl: "https://microsoft.github.io/Data-Science-For-Beginners/sketchnotes/00-Title.png",
-        description:
-            "An introductory course to Data Science, including Python and R programming.",
-        price: "120",
-    },
-    {
-        name: "Graphic Design Essentials",
-        imgUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPspKWzU0xlXOIY2i1_Q6rIiYLyuZSYH4B-w&s",
-        description:
-            "Master the tools of Adobe Photoshop, Illustrator, and InDesign.",
-        price: "85",
-    },
-];
+import { useMemo, useState, useEffect } from "react";
+import axios from "axios";
 
 function Course() {
     const [showForm, isShowForm] = useState(false);
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState("");
     const [content, setContent] = useState("");
     const [price, setPrice] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
+    const [courses, setCourses] = useState([]);
 
-    const addCourse = (event) => {
+    const fetchCourses = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/api/cours');
+            setCourses(response.data.data);
+            console.log('Fetched Courses: ', response);
+        } catch (error) {
+            console.error('Error fetching courses:', error);
+        }
+    };
+
+ const deleteCourse = async (id) => {
+    try{
+        await axios.delete(`http://localhost:8000/api/cours/${id}`);
+        console.log('Course deleted successfully');
+        fetchCourses();
+    } catch(error){
+        console.error('Error deleting Course:', error);
+    }
+ }
+
+    const addCourse = async (event) => {
         event.preventDefault();
         const errors = addBlogValidate();
         setErrors(errors);
+
+        try {
+            const courseData = {
+                title,
+                content,
+                image,
+                price,
+            };
+            const res = await axios.post('http://localhost:8000/api/cours', courseData);
+            console.log("New Course Added:", res.data.data);
+            fetchCourses();
+
+            setTitle('');
+            setContent('');
+            setImage('');
+            setPrice('');
+        } catch (error) {
+            console.error('Error creating course:', error);
+        }
     };
+
+
+    useEffect(() => {
+        fetchCourses();
+    }, []);
 
     const addBlogValidate = () => {
         const error = {};
@@ -51,11 +73,11 @@ function Course() {
             error.title = "Title must be at least 6 characters";
         }
 
-        // Image URL validation
-        if (!imageUrl) {
-            error.imageUrl = "Image URL is required";
-        } else if (!imageUrl.startsWith("http")) {
-            error.imageUrl = "Invalid Image URL format";
+        // Image validation
+        if (!image) {
+            error.image = "Image is required";
+        } else if (!image.startsWith("http")) {
+            error.image = "Invalid Image format";
         }
 
         // Content validation
@@ -77,11 +99,11 @@ function Course() {
         return error;
     };
 
-    const filterCouses = useMemo(() => {
+    const filterCourses = useMemo(() => {
         return courses.filter((course) => {
-            return course.name.toLowerCase().includes(searchTerm.toLowerCase());
+            return course.title.toLowerCase().includes(searchTerm.toLowerCase());
         });
-    }, [searchTerm]);
+    }, [courses, searchTerm]);
 
     return (
         <>
@@ -121,54 +143,63 @@ function Course() {
                         id="tableContainer"
                         className="relative overflow-x-auto my-2 py-4  sm:rounded-lg grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-4  " // {flex flex-wrap  justify-center items-stretch}
                     >
-                        {filterCouses?.map((course, index) => (
-                            <div
-                                key={index}
-                                className="flex flex-col group relative max-w-md rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 mx-auto transform"
-                            >
-                                <button
-                                    className="absolute text-gray-900 dark:text-gray-100 bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800 z-50 top-5 -right-14 cursor-pointer py-2 pr-4 pl-2 rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 transition-all duration-300 ease-in-out group-hover:right-0"
-                                    aria-label="Delete"
+                        {filterCourses.length > 0 ? (
+                            filterCourses.map((course, index) => (
+                                <div
+                                    key={index}
+                                    className="flex flex-col group relative max-w-md rounded-lg overflow-hidden shadow-lg bg-white dark:bg-gray-800 transition-all duration-300 mx-auto transform"
                                 >
-                                    <Trash size={20} />
-                                </button>
-                                <div className="relative w-full h-[220px] overflow-hidden rounded-t-lg">
-                                    <img
-                                        className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
-                                        src={course.imgUrl}
-                                        alt={course.name}
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>{" "}
-                                    {/* Gradient overlay */}
-                                    <div className="absolute bottom-4 left-4">
-                                        <span className="bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
-                                            New
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className="p-6">
-                                    <div className="font-bold text-2xl mb-2 text-gray-900 dark:text-gray-100">
-                                        {course.name}
-                                    </div>
-                                    <p className="text-gray-600 dark:text-gray-300 text-base mb-4">
-                                        {course.description}
-                                    </p>
-                                </div>
-                                <div className="flex justify-between items-center px-6 pb-6 mt-auto">
-                                    <p className="text-lg font-semibold text-blue-600 dark:text-blue-300">
-                                        ${course.price}
-                                        {/* Format price as a number */}
-                                    </p>
                                     <button
-                                        className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all flex items-center space-x-2"
-                                        aria-label="Buy"
+                                        onClick={() => deleteCourse(course.id)}
+                                        className="absolute text-gray-900 dark:text-gray-100 bg-blue-500 dark:bg-blue-700 hover:bg-blue-600 dark:hover:bg-blue-800 z-50 top-5 -right-14 cursor-pointer py-2 pr-4 pl-2 rounded-tl-md rounded-bl-md focus:outline-none focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 transition-all duration-300 ease-in-out group-hover:right-0"
+                                        aria-label="Delete"
                                     >
-                                        <ShoppingCart size={20} />
-                                        <span>Buy Now</span>
+                                        <Trash size={20} />
                                     </button>
+                                    <div className="relative w-full h-[220px] overflow-hidden rounded-t-lg">
+                                        <img
+                                            className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
+                                            src={course.image}
+                                            alt="Course Image"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-30"></div>{" "}
+                                        {/* Gradient overlay */}
+                                        <div className="absolute bottom-4 left-4">
+                                            <span className="bg-blue-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
+                                                New
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <div className="font-bold text-2xl mb-2 text-gray-900 dark:text-gray-100">
+                                            {course.title}
+                                        </div>
+                                        <p className="text-gray-600 dark:text-gray-300 text-base mb-4">
+                                            {course.content}
+                                        </p>
+                                    </div>
+                                    <div className="flex justify-between items-center px-6 pb-6 mt-auto">
+                                        <p className="text-lg font-semibold text-blue-600 dark:text-blue-300">
+                                            ${course.price}
+                                            {/* Format price as a number */}
+                                        </p>
+                                        <button
+                                            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-all flex items-center space-x-2"
+                                            aria-label="Buy"
+                                        >
+                                            <ShoppingCart size={20} />
+                                            <span>Buy Now</span>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="6" className="text-center py-4">
+                                    No courses found.
+                                </td>
+                            </tr>
+                        )}
                     </motion.div>
                 </main>
             </div>
@@ -177,9 +208,8 @@ function Course() {
                 onClick={() => {
                     isShowForm(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
-                    showForm ? "block" : "hidden"
-                }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showForm ? "block" : "hidden"
+                    }`}
             ></div>
             {/* form  */}
             <div
@@ -187,7 +217,7 @@ function Course() {
     ${showForm ? "block" : "hidden"}`}
             >
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
-                    blog Information
+                    cours Information
                 </h2>
                 <form onSubmit={addCourse} className="space-y-4">
                     {/** Title Field **/}
@@ -202,6 +232,7 @@ function Course() {
                             type="text"
                             id="title"
                             name="title"
+                            value={title}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
                         ${errors.title && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
@@ -216,31 +247,32 @@ function Course() {
                         )}
                     </div>
 
-                    {/** Image URL Field **/}
+                    {/** Image Field **/}
                     <div>
                         <label
-                            htmlFor="imageUrl"
+                            htmlFor="image"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                         >
-                            Image URL
+                            Image
                         </label>
                         <input
                             type="text"
-                            id="imageUrl"
-                            name="imageUrl"
+                            id="image"
+                            name="image"
+                            value={image}
+
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${
-                            errors.imageUrl &&
-                            "border-red-500 dark:border-red-500"
-                        }
+                        ${errors.image &&
+                                "border-red-500 dark:border-red-500"
+                                }
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="https://example.com/image.jpg"
-                            onChange={(e) => setImageUrl(e.target.value)}
+                            onChange={(e) => setImage(e.target.value)}
                         />
-                        {errors.imageUrl && (
+                        {errors.image && (
                             <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.imageUrl}
+                                {errors.image}
                             </p>
                         )}
                     </div>
@@ -257,11 +289,12 @@ function Course() {
                             id="content"
                             name="content"
                             rows="4"
+                            value={content}
+
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${
-                            errors.content &&
-                            "border-red-500 dark:border-red-500"
-                        }
+                        ${errors.content &&
+                                "border-red-500 dark:border-red-500"
+                                }
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="Write your course description..."
@@ -286,6 +319,8 @@ function Course() {
                             type="number"
                             id="price"
                             name="price"
+                            value={price}
+
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
                         ${errors.price && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500

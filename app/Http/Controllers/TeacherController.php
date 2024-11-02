@@ -33,7 +33,8 @@ class teachercontroller extends Controller
      */
     public function show(Teacher $teacher)
     {
-        //
+        return Teacher::findOrFail($teacher->id);
+        
     }
 
     /**

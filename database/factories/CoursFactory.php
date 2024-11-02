@@ -20,6 +20,8 @@ class CoursFactory extends Factory
             'title' => $this->faker->sentence(),
             'content' => $this->faker->paragraph(5),
             'price' => $this->faker->randomFloat(),
+            'image' => $this->faker->imageUrl(),
+
         ];
     }
 }

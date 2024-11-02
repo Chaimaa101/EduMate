@@ -24,8 +24,7 @@ class StoreStudentRequest extends FormRequest
         return [
             'firstname' => 'required',
             'lastname' => 'required',
-            'birthday' => 'required',
-            'class' => 'required',
+            'phone' => 'required',
             'dateAdmission' => 'required',   
         ];
     }

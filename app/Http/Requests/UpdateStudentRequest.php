@@ -11,7 +11,7 @@ class UpdateStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateStudentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'dateAdmission' => 'required',  
         ];
     }
 }
