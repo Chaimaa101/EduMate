@@ -25,7 +25,6 @@ class UpdateTeacherRequest extends FormRequest
             'firstname' => 'required',
             'lastname' => 'required',
             'phone' => 'required',
-            'department' => 'required', 
         ];
     }
 }

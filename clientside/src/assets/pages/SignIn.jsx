@@ -2,12 +2,15 @@ import { Eye, EyeClosed } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// import { axiosClient } from "../../api/axios";
+import axios from "axios";
 
 function SignIn() {
   const [isColse, setIsColse] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [firstname, setFirstname] = useState("");
+  // const [lastname, setLastname] = useState("");
+  // const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState([]);
   const navigate = useNavigate();
   // This is for show Password
@@ -25,7 +28,19 @@ function SignIn() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    //  try{
+    //     const userData = {
+    //         firstname,
+    //         lastname,
+    //         phone,
+    //     }
+    //     const response = await axios.post("http://localhost:8000/api/teachers", userData);
         navigate("/dashboard");
+        // console.log(response.data.data);
+
+        // } catch (error) {
+        //         console.error('Error creating Account:', error);
+        //     }
     
   };
 
@@ -67,6 +82,79 @@ function SignIn() {
           Enter your credentials to access your account
         </p>
         <form onSubmit={handleSubmit} method="POST" className="flex flex-col gap-y-3">
+          {/* <div className="flex flex-col">
+            <label
+              className="font-semibold text-sm text-gray-500 mb-1"
+              htmlFor="email"
+            >
+              First Name
+            </label>
+            <input
+              className={`${
+                errors.email && "border-red-500"
+              }  border-gray-300  w-full border-[1.5px]   p-2 rounded-sm text-gray-400 text-sm outline-none focus:border-2  placeholder:text-sm `}
+              type="text"
+              value={firstname}
+              name="firstname"
+              id="firstname"
+              placeholder="Enter your email"
+              onChange={(e) => setFirstname(e.target.value)}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm font-thin pl-1">
+                {errors.email}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <label
+              className="font-semibold text-sm text-gray-500 mb-1"
+              htmlFor="email"
+            >
+              Last Name
+            </label>
+            <input
+              className={`${
+                errors.email && "border-red-500"
+              }  border-gray-300  w-full border-[1.5px]   p-2 rounded-sm text-gray-400 text-sm outline-none focus:border-2  placeholder:text-sm `}
+              type="text"
+              value={lastname}
+              name="lastname"
+              id="lastname"
+              placeholder="Enter your email"
+              onChange={(e) => setLastname(e.target.value)}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm font-thin pl-1">
+                {errors.email}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-col">
+            <label
+              className="font-semibold text-sm text-gray-500 mb-1"
+              htmlFor="email"
+            >
+              Phone
+            </label>
+            <input
+              className={`${
+                errors.email && "border-red-500"
+              }  border-gray-300  w-full border-[1.5px]   p-2 rounded-sm text-gray-400 text-sm outline-none focus:border-2  placeholder:text-sm `}
+              type="text"
+              value={phone}
+              name="phone"
+              id="phone"
+              placeholder="Enter your email"
+              onChange={(e) => setPhone(e.target.value)}
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm font-thin pl-1">
+                {errors.email}
+              </p>
+            )}
+          </div> */}
           <div className="flex flex-col">
             <label
               className="font-semibold text-sm text-gray-500 mb-1"
@@ -130,6 +218,7 @@ function SignIn() {
             className="bg-blue-500 p-2 text-white uppercase font-normal cursor-pointer rounded-sm"
             type="submit"
             value="sign in"
+            onClick={handleSubmit}
           />
         </form>
         <p className="text-center text-xs mt-2">

@@ -35,6 +35,22 @@ function Students() {
             console.error('Error deleting student:', error);
         }
     };
+    
+    const updateStudent = async (id) => {
+        try {
+             const studentData = {
+                    firstname,
+                    lastname,
+                    phone,
+                    dateAdmission,
+                };
+            const res = await axios.put(`http://localhost:8000/api/students/${id}` , studentData);
+            console.log('Student updated successfully: ', res.data.data);
+            fetchStudents();
+        } catch (error) {
+            console.error('Error updating student:', error);
+        }
+    };
 
     const addStudent = async (event) => {
         event.preventDefault();

@@ -3,30 +3,32 @@ import Header from "../components/common/Header";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import axios from "axios";
 
 export default function Profile() {
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
-    const [birthday, setBirthday] = useState('')
+    const [phone, setPhone] = useState('')
+
+    //  const updateUser = async (id) => {
+    //     try {
+    //          const userData = {
+    //                 firstname,
+    //                 lastname,
+    //                 phone,
+    //             };
+    //         const res = await axios.put(`http://localhost:8000/api/teachers/${id}` , userData);
+    //         console.log('User informations updated successfully: ', res.data.data);
+            
+    //     } catch (error) {
+    //         console.error('Error updating informations:', error);
+    //     }
+    // };
+
 
     const createUser = async (e) => {
         e.preventDefault();
-        const formData = new formData();
-        formData.apend('firstName', firstName)
-        formData.apend('lastName', lastName)
-        formData.apend('birthday', birthday)
-  const navigate = useNavigate();
-        await axios.post("/api/teachers", formData).then(({ data }) => {
-            console.log(data.message);
-            navigate('/dashbord')
-        }).catch(({ response }) => {
-            if (response.status === 442) {
-                console.log(response.data.error)
-            } else {
-                console.log(response.data.message)
-            }
-        })
+        
     }
         return (
             <div className="flex-1 relative overflow-auto z-10">
@@ -77,15 +79,15 @@ export default function Profile() {
                             <div className="flex flex-col gap-2">
                                 <label
                                     className="text-lg font-semibold text-gray-700 dark:text-gray-300"
-                                    htmlFor="birthday"
+                                    htmlFor="phone"
                                 >
-                                    Birthday:
+                                   phone:
                                 </label>
                                 <input
                                     className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
-                                    type="date"
-                                    id="birthday"
-                                    name="birthday"
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
                                 />
                             </div>
 
@@ -109,13 +111,13 @@ export default function Profile() {
                         {/* Profile Picture */}
                         <div className="w-20 h-20 bg-blue-500 dark:bg-blue-400 flex items-center justify-center rounded-full cursor-pointer">
                             <span className="font-semibold text-3xl text-white">
-                                {charAt(teacher.firstname)+ charAt(teacher.lastname)}
+                                {/* ${user.firstname.charAt(0)}${user.lastname.charAt(0)} */}
                             </span>
                         </div>
 
                         {/* User Name and Email */}
                         <h3 className="font-bold text-3xl text-gray-800 dark:text-white">
-                            {teacher.firstname + teacher.lastname}
+                            {/* ${user.firstname}${user.lastname} */}
                         </h3>
                         <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
                             example@domain.com

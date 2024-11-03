@@ -25,7 +25,6 @@ class StoreTeacherRequest extends FormRequest
             'firstname' => 'required',
             'lastname' => 'required',
             'phone' => 'required',
-            'department' => 'required',  
         ];
     }
 }

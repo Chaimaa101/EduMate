@@ -21,12 +21,6 @@ class TeacherFactory extends Factory
             'firstname' => $this->faker->name(),
             'lastname' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
-            'department' => $this->faker->randomElement([
-                'Computer Science',
-                'Mathematics',
-                'Physics',
-                'Biology'
-            ]),
         ];
     }
 }

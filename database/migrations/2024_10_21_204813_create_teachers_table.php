@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('phone');
-            $table->string('department');
             $table->timestamps();
         });
     }
