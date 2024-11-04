@@ -6,7 +6,8 @@ import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 function Students() {
-    const [showForm, isShowForm] = useState(false);
+    const [showFormAdd, isShowFormAdd] = useState(false);
+    const [showFormEdit, isShowFormEdit] = useState(false);
     const [errors, setErrors] = useState([]);
     const [firstname, setfirstname] = useState("");
     const [lastname, setlastname] = useState("");
@@ -165,7 +166,7 @@ function Students() {
                         </div>
                         <motion.button
                             onClick={() => {
-                                isShowForm(true);
+                                isShowFormAdd(true);
                             }}
                             whileTap={{ scale: 0.95 }}
                             className="w-full md:w-fit bg-blue-500 py-2 px-4 rounded-lg text-nowrap"
@@ -253,7 +254,7 @@ function Students() {
                                             <td className="px-6 py-4 flex items-center gap-2">
                                                 <motion.a
                                                     onClick={() => {
-                                                        isShowForm(true);
+                                                        isShowFormEdit(true);
                                                     }}
                                                     whileTap={{ scale: 0.85 }}
                                                     className="text-blue-500 hover:text-gray-500"
@@ -289,17 +290,18 @@ function Students() {
                     </motion.div>
                 </main>
             </div>
+            {/* This is Add form */}
             <div
                 onClick={() => {
-                    isShowForm(false);
+                    isShowFormAdd(false);
                 }}
                 className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
-                    showForm ? "block" : "hidden"
+                    showFormAdd ? "block" : "hidden"
                 }`}
             ></div>
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
-    ${showForm ? "block" : "hidden"}`}
+    ${showFormAdd ? "block" : "hidden"}`}
             >
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     Student Information
@@ -419,6 +421,141 @@ function Students() {
                             className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
                         >
                             ADD STUDENT
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {/* This is Edit form */}
+            <div
+                onClick={() => {
+                    isShowFormEdit(false);
+                }}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
+                    showFormEdit ? "block" : "hidden"
+                }`}
+            ></div>
+            <div
+                className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
+    ${showFormEdit ? "block" : "hidden"}`}
+            >
+                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
+                    Student Information
+                </h2>
+                <form onSubmit={addStudent} className="space-y-4">
+                    {/** Full Name Field **/}
+                    <div>
+                        <label
+                            htmlFor="firstname"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            First Name
+                        </label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            name="firstname"
+                            value={firstname}
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
+                ${errors.firstname && "border-red-500 dark:border-red-500"} 
+                bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="John Doe"
+                            onChange={(e) => setfirstname(e.target.value)}
+                        />
+                        {errors.firstname && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.firstname}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** lastname Field **/}
+                    <div>
+                        <label
+                            htmlFor="lastname"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Last Name
+                        </label>
+                        <input
+                            type="text"
+                            id="lastname"
+                            name="lastname"
+                            value={lastname}
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
+                ${errors.lastname && "border-red-500 dark:border-red-500"} 
+                bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="you@example.com"
+                            onChange={(e) => setlastname(e.target.value)}
+                        />
+                        {errors.lastname && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.lastname}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Phone Field **/}
+                    <div>
+                        <label
+                            htmlFor="phone"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Phone
+                        </label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            value={phone}
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
+                ${errors.phone && "border-red-500 dark:border-red-500"} 
+                bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="+123456789"
+                            onChange={(e) => setPhone(e.target.value)}
+                        />
+                        {errors.phone && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.phone}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Date of Admission Field **/}
+                    <div>
+                        <label
+                            htmlFor="admission"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Date of Admission
+                        </label>
+                        <input
+                            type="date"
+                            id="admission"
+                            name="dateAdmission"
+                            value={dateAdmission}
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
+                ${errors.date && "border-red-500 dark:border-red-500"} 
+                text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            onChange={(e) => setDate(e.target.value)}
+                        />
+                        {errors.date && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.date}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Submit Button **/}
+                    <div>
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
+                        >
+                            EDIT STUDENT
                         </button>
                     </div>
                 </form>

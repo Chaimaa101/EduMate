@@ -5,7 +5,8 @@ import { useMemo, useState, useEffect } from "react";
 import axios from "axios";
 
 function Course() {
-    const [showForm, isShowForm] = useState(false);
+    const [showFormAdd, isShowFormAdd] = useState(false);
+    const [showFormEdit, isShowFormEdit] = useState(false);
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
@@ -24,7 +25,7 @@ function Course() {
         }
     };
 
- const deleteCourse = async (id) => {
+const deleteCourse = async (id) => {
     try{
         await axios.delete(`http://localhost:8000/api/cours/${id}`);
         console.log('Course deleted successfully');
@@ -32,7 +33,7 @@ function Course() {
     } catch(error){
         console.error('Error deleting Course:', error);
     }
- }
+}
 
     const addCourse = async (event) => {
         event.preventDefault();
@@ -57,7 +58,7 @@ function Course() {
         } catch (error) {
             console.error('Error creating course:', error);
         }
-        isShowForm(false)
+        isShowFormAdd(false)
     };
 
 
@@ -129,7 +130,7 @@ function Course() {
                         </div>
                         <motion.button
                             onClick={() => {
-                                isShowForm(true);
+                                isShowFormAdd(true);
                             }}
                             whileTap={{ scale: 0.95 }}
                             className="w-full md:w-fit bg-blue-500 py-2 px-4 rounded-lg text-nowrap"
@@ -204,18 +205,19 @@ function Course() {
                     </motion.div>
                 </main>
             </div>
+            {/* ----------------------------------- ADD FORM -------------------------------------- */}
             {/* black w-screen */}
             <div
                 onClick={() => {
-                    isShowForm(false);
+                    isShowFormAdd(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showForm ? "block" : "hidden"
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormAdd ? "block" : "hidden"
                     }`}
             ></div>
             {/* form  */}
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000]
-    ${showForm ? "block" : "hidden"}`}
+    ${showFormAdd ? "block" : "hidden"}`}
             >
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     cours Information
@@ -343,6 +345,150 @@ function Course() {
                             className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
                         >
                             ADD COURSE
+                        </button>
+                    </div>
+                </form>
+            </div>
+            {/* ----------------------------------- EDIT FORM -------------------------------------- */}
+            {/* black w-screen */}
+            <div
+                onClick={() => {
+                    isShowFormEdit(false);
+                }}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormEdit ? "block" : "hidden"
+                    }`}
+            ></div>
+            {/* form  */}
+            <div
+                className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000]
+    ${showFormEdit ? "block" : "hidden"}`}
+            >
+                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
+                    cours Information
+                </h2>
+                <form onSubmit={addCourse} className="space-y-4">
+                    {/** Title Field **/}
+                    <div>
+                        <label
+                            htmlFor="title"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Title
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            value={title}
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
+                        ${errors.title && "border-red-500 dark:border-red-500"}
+                        bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                        focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="Enter Course Title"
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        {errors.title && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.title}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Image Field **/}
+                    <div>
+                        <label
+                            htmlFor="image"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Image
+                        </label>
+                        <input
+                            type="text"
+                            id="image"
+                            name="image"
+                            value={image}
+
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
+                        ${errors.image &&
+                                "border-red-500 dark:border-red-500"
+                                }
+                        bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                        focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="https://example.com/image.jpg"
+                            onChange={(e) => setImage(e.target.value)}
+                        />
+                        {errors.image && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.image}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Content Field **/}
+                    <div>
+                        <label
+                            htmlFor="content"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Content
+                        </label>
+                        <textarea
+                            id="content"
+                            name="content"
+                            rows="4"
+                            value={content}
+
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
+                        ${errors.content &&
+                                "border-red-500 dark:border-red-500"
+                                }
+                        bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                        focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="Write your course description..."
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                        {errors.content && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.content}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Price Field **/}
+                    <div>
+                        <label
+                            htmlFor="price"
+                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                        >
+                            Price
+                        </label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            value={price}
+
+                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
+                        ${errors.price && "border-red-500 dark:border-red-500"}
+                        bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
+                        focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
+                            placeholder="Enter Course Price"
+                            onChange={(e) => setPrice(e.target.value)}
+                        />
+                        {errors.price && (
+                            <p className="text-red-500 text-sm font-normal pl-1">
+                                {errors.price}
+                            </p>
+                        )}
+                    </div>
+
+                    {/** Submit Button **/}
+                    <div>
+                        <button
+                            type="submit"
+                            className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
+                        >
+                            EDIT COURSE
                         </button>
                     </div>
                 </form>
