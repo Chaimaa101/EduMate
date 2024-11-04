@@ -1,29 +1,13 @@
 import { LogOut, Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../ThemeContext/ThemeContext";
 
 // eslint-disable-next-line react/prop-types
 function Header({ title }) {
     const [showEmail, setShowEmail] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
-    const [darkMode, setDarkMode] = useState(() => {
-        const userPref = localStorage.getItem("theme");
-        const systemPrefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches;
-        return userPref ? userPref === "dark" : systemPrefersDark;
-    });
-
     const navigate = useNavigate();
-
-    useEffect(() => {
-        document.documentElement.classList.toggle("dark", darkMode);
-        localStorage.setItem("theme", darkMode ? "dark" : "light");
-    }, [darkMode]);
-
-    const toggleDarkMode = () => {
-        setDarkMode((prev) => !prev);
-    };
 
     const handleLogout = () => {
         setShowAlert(true);
@@ -33,6 +17,8 @@ function Header({ title }) {
     const confirmLogout = () => {
         navigate("/");
     };
+
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <>
@@ -44,16 +30,20 @@ function Header({ title }) {
                     <button
                         id="theme-toggle"
                         className="text-gray-800 dark:text-gray-200"
-                        onClick={toggleDarkMode}
+                        onClick={toggleTheme}
                     >
-                        {darkMode ? <Sun size={30} /> : <Moon size={30} />}
+                        {theme === "dark" ? (
+                            <Sun size={30} />
+                        ) : (
+                            <Moon size={30} />
+                        )}
                     </button>
                     <div
                         onClick={() => setShowEmail((prev) => !prev)}
                         className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
                     >
                         <span className="font-semibold text-lg text-white">
-                            JD
+                            IA
                         </span>
                     </div>
                 </div>

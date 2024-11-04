@@ -5,7 +5,6 @@ import { Pencil, Trash } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
-
 function Students() {
     const [showForm, isShowForm] = useState(false);
     const [errors, setErrors] = useState([]);
@@ -18,62 +17,67 @@ function Students() {
 
     const fetchStudents = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/students');
+            const response = await axios.get(
+                "http://localhost:8000/api/students"
+            );
             setStudents(response.data.data);
             console.log(response);
         } catch (error) {
-            console.error('Error fetching students:', error);
+            console.error("Error fetching students:", error);
         }
     };
 
     const deleteStudent = async (id) => {
         try {
             await axios.delete(`http://localhost:8000/api/students/${id}`);
-            console.log('Student deleted successfully');
+            console.log("Student deleted successfully");
             fetchStudents();
         } catch (error) {
-            console.error('Error deleting student:', error);
+            console.error("Error deleting student:", error);
         }
     };
-    
-    const updateStudent = async (id) => {
-        try {
-             const studentData = {
-                    firstname,
-                    lastname,
-                    phone,
-                    dateAdmission,
-                };
-            const res = await axios.put(`http://localhost:8000/api/students/${id}` , studentData);
-            console.log('Student updated successfully: ', res.data.data);
-            fetchStudents();
-        } catch (error) {
-            console.error('Error updating student:', error);
-        }
-    };
+
+    // const updateStudent = async (id) => {
+    //     try {
+    //          const studentData = {
+    //                 firstname,
+    //                 lastname,
+    //                 phone,
+    //                 dateAdmission,
+    //             };
+    //         const res = await axios.put(`http://localhost:8000/api/students/${id}` , studentData);
+    //         console.log('Student updated successfully: ', res.data.data);
+    //         fetchStudents();
+    //     } catch (error) {
+    //         console.error('Error updating student:', error);
+    //     }
+    // };
 
     const addStudent = async (event) => {
         event.preventDefault();
         const errors = addStudentValidate();
-        setErrors(errors);        
-            try {
-                const studentData = {
-                    firstname,
-                    lastname,
-                    phone,
-                    dateAdmission,
-                };
-                const res = await axios.post('http://localhost:8000/api/students', studentData);
-                console.log("New Student Added:", res.data.data);
-                fetchStudents();
+        setErrors(errors);
+        try {
+            const studentData = {
+                firstname,
+                lastname,
+                phone,
+                dateAdmission,
+            };
+            const res = await axios.post(
+                "http://localhost:8000/api/students",
+                studentData
+            );
+            console.log("New Student Added:", res.data.data);
+            fetchStudents();
 
-                setfirstname('');
-                setlastname('');
-                setPhone('');
-                setDate('');
-            } catch (error) {
-                console.error('Error creating Student:', error);
-            }
+            setfirstname("");
+            setlastname("");
+            setPhone("");
+            setDate("");
+        } catch (error) {
+            console.error("Error creating Student:", error);
+        }
     };
 
     useEffect(() => {
@@ -110,7 +114,6 @@ function Students() {
             error.phone = "";
         }
 
-
         // Date of DateAdmission validation
         if (!dateAdmission) {
             error.dateAdmission = "Date of Admission is Required";
@@ -119,7 +122,8 @@ function Students() {
             const currentDate = new Date();
 
             if (admissionDate > currentDate) {
-                error.dateAdmission = "Date of Admission cannot be in the future";
+                error.dateAdmission =
+                    "Date of Admission cannot be in the future";
             } else {
                 error.dateAdmission = "";
             }
@@ -129,10 +133,11 @@ function Students() {
     };
 
     const filteredStudents = useMemo(() => {
-        return Array.isArray(students) ?
-            students.filter((student) =>
+        return Array.isArray(students)
+            ? students.filter((student) =>
                 student.firstname.toLowerCase().includes(searchTerm.toLowerCase())
-            ) : [];
+            )
+            : [];
     }, [students, searchTerm]);
 
     return (
@@ -140,7 +145,7 @@ function Students() {
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Students"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
-                    §                <motion.div
+                    <motion.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
@@ -227,7 +232,9 @@ function Students() {
                                             <td
                                                 scope="row"
                                                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                            >{index + 1}</td>
+                                            >
+                                                {index + 1}
+                                            </td>
                                             <td
                                                 scope="row"
                                                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
@@ -254,7 +261,11 @@ function Students() {
                                                     <Pencil size={20} />
                                                 </motion.a>
                                                 <motion.a
-                                                    onClick={() => deleteStudent(student.id)}
+                                                    onClick={() =>
+                                                        deleteStudent(
+                                                            student.id
+                                                        )
+                                                    }
                                                     whileTap={{ scale: 0.85 }}
                                                     className="text-blue-500 hover:text-gray-500"
                                                 >
@@ -265,7 +276,10 @@ function Students() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="6" className="text-center py-4">
+                                        <td
+                                            colSpan="6"
+                                            className="text-center py-4"
+                                        >
                                             No students found.
                                         </td>
                                     </tr>
@@ -279,8 +293,9 @@ function Students() {
                 onClick={() => {
                     isShowForm(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showForm ? "block" : "hidden"
-                    }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
+                    showForm ? "block" : "hidden"
+                }`}
             ></div>
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
@@ -412,4 +427,4 @@ function Students() {
     );
 }
 
-export default Students; 
+export default Students;

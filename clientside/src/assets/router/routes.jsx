@@ -16,17 +16,17 @@ export const router = createBrowserRouter([
         element: <SignIn />,
     },
     {
-        path: "/rasetpassword",
+        path:"/resetpassword",
         element: <RasetPassword />,
-    },
-    {
-        path: "*",
-        element: <ErrorPage />,
     },
     {
         path: "/",
         element: <Layout />, // Wrap routes with Layout
         children: [
+            {
+                path: "*",
+                element: <ErrorPage />,
+            },
             {
                 path: "dashboard",
                 element: <Dashboard />,

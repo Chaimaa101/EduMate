@@ -206,11 +206,11 @@ function Blog() {
                                 </div>
                             ))
                         ) : (
-                            <tr>
-                                <td colSpan="6" className="text-center py-4">
+                            <div className="mx-auto col-start-1 col-end-7">
+                                <p className="text-center py-4 text-[#9ca3af]">
                                     No blogs found.
-                                </td>
-                            </tr>
+                                </p>
+                            </div>
                         )}
                     </motion.div>
                 </main>

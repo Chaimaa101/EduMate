@@ -44,7 +44,7 @@ function Dashboard() {
                         bg="#d41f79"
                     />
                 </motion.div>
-                {/* CHARTS */}
+                
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <PlatformStudents />
                     <CourseCategory />
