@@ -66,13 +66,10 @@ function Blog() {
             setTag3("");
         } catch (error) {
             console.error("Error creating blog:", error);
-<<<<<<< HEAD
-=======
         }
         if (Object.keys(errors).length === 0) {
             isShowFormAdd(false);
             toast.success("Addition successful!");
->>>>>>> SignIn&Profile
         }
     };
 
@@ -126,20 +123,12 @@ function Blog() {
         return error;
     };
 
-<<<<<<< HEAD
     //  logic for search
     const filterBlogs = useMemo(() => {
         return Array.isArray(blogs)
             ? blogs.filter((blog) =>
-                blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-=======
-    const filterBlogs = useMemo(() => {
-        return Array.isArray(blogs)
-            ? blogs.filter((blog) =>
-                    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-                )
->>>>>>> SignIn&Profile
+                  blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
             : [];
     }, [blogs, searchTerm]);
 
@@ -433,10 +422,6 @@ function Blog() {
                     </div>
                 </form>
             </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> SignIn&Profile
         </>
     );
 }
