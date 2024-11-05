@@ -15,6 +15,7 @@ function Students() {
     const [dateAdmission, setDate] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [students, setStudents] = useState([]);
+     const [selectedStudentId, setSelectedStudentId] = useState(null); 
 
     const fetchStudents = async () => {
         try {
@@ -38,21 +39,36 @@ function Students() {
         }
     };
 
-    // const updateStudent = async (id) => {
-    //     try {
-    //          const studentData = {
-    //                 firstname,
-    //                 lastname,
-    //                 phone,
-    //                 dateAdmission,
-    //             };
-    //         const res = await axios.put(`http://localhost:8000/api/students/${id}` , studentData);
-    //         console.log('Student updated successfully: ', res.data.data);
-    //         fetchStudents();
-    //     } catch (error) {
-    //         console.error('Error updating student:', error);
-    //     }
-    // };
+    const updateStudent = (student) => {
+        setfirstname(student.firstname);
+        setlastname(student.lastname);
+        setPhone(student.phone);
+        setDate(student.dateAdmission);
+        setSelectedStudentId(student.id); // Set the selected student ID
+        isShowFormEdit(true); // Show the edit form
+    };
+
+    const editStudent = async (event) => {
+        event.preventDefault();
+        const errors = addStudentValidate();
+        setErrors(errors);
+
+        try {
+            const studentData = {
+                firstname,
+                lastname,
+                phone,
+                dateAdmission,
+            };
+            const res = await axios.put(`http://localhost:8000/api/students/${selectedStudentId}`, studentData);
+            console.log("Student updated successfully: ", res.data.data);
+            fetchStudents();
+            resetForm();
+            isShowFormEdit(false); // Hide the edit form
+        } catch (error) {
+            console.error('Error updating student:', error);
+        }
+    };
 
     const addStudent = async (event) => {
         event.preventDefault();
@@ -255,6 +271,7 @@ function Students() {
                                                 <motion.a
                                                     onClick={() => {
                                                         isShowFormEdit(true);
+                                                        updateStudent(student)
                                                     }}
                                                     whileTap={{ scale: 0.85 }}
                                                     className="text-blue-500 hover:text-gray-500"
@@ -290,7 +307,8 @@ function Students() {
                     </motion.div>
                 </main>
             </div>
-            {/* This is Add form */}
+         
+           {/* This is Add form */}
             <div
                 onClick={() => {
                     isShowFormAdd(false);
@@ -441,9 +459,10 @@ function Students() {
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     Student Information
                 </h2>
-                <form onSubmit={addStudent} className="space-y-4">
+                <form onSubmit={editStudent} className="space-y-4">
                     {/** Full Name Field **/}
                     <div>
+                        <input type="hidden" value={selectedStudentId} />
                         <label
                             htmlFor="firstname"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300"

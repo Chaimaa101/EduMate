@@ -15,7 +15,8 @@ function Blog() {
     const [tag1, setTag1] = useState("");
     const [tag2, setTag2] = useState("");
     const [tag3, setTag3] = useState("");
-    const [blogs, setBlogs] = useState([]);
+    const [blogs, setBlogs] = useState([]); 
+    const [selectedBlogId, setSelectedBlogId] = useState(null); 
 
     const fetchBlogs = async () => {
         try {
@@ -26,6 +27,35 @@ function Blog() {
             console.error('Error fetching blogs:', error);
         }
     };
+
+     const updateBlog = (blog) => {
+      setTitle(blog.title);
+      setContent(blog.content);
+      setImage(blog.image);
+      settag1(blog.tag1);
+      settag2(blog.tag2);
+      settag3(blog.tag3);
+      setSelectedStudentId(blog.id);
+      setIsEditFormVisible(true);
+   };
+
+   const editBlog = async (event) => {
+      event.preventDefault();
+      const errors = addStudentValidate();
+      setErrors(errors);
+
+      if (!Object.keys(errors).length) {
+         try {
+            const blogData = { title, content, image, tag1, tag2 , tag3};
+            const res = await  axios.post('http://localhost:8000/api/blogs', blogData);
+            console.log("Blog updated successfully:", res.data.data);
+            fetchStudents();
+            setIsEditFormVisible(false);
+         } catch (error) {
+            console.error("Error updating blog:", error);
+         }
+      }
+   };
 
     const deleteBlog = async (id) => {
         try {
@@ -434,9 +464,11 @@ function Blog() {
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     blog Information
                 </h2>
-                <form onSubmit={addBlog} className="space-y-4">
+                <form onSubmit={editBlog} className="space-y-4">
                     {/** Title Field **/}
                     <div>
+                        <input type="hidden" value={selectedBlogId} />
+
                         <label
                             htmlFor="title"
                             className="block text-sm font-medium text-gray-700 dark:text-gray-300"

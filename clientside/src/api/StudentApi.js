@@ -1,22 +1,13 @@
+// src/api/studentApi.js
+import axios from "axios";
 
-import axiosClient from './axiosClient';
+const BASE_URL = "http://localhost:8000/api/students";
 
-const StudentApi = {
-   create: async (data) => {
-      return await axiosClient.post("/api/students", data);
-   },
-   getAll: async () => {
-      return await axiosClient.get("/api/students");
-   },
-   getById: async (id) => {
-      return await axiosClient.get(`/api/students/${id}`);
-   },
-   update: async (id, data) => {
-      return await axiosClient.put(`/api/students/${id}`, data);
-   },
-   delete: async (id) => {
-      return await axiosClient.delete(`/api/students/${id}`);
-   },
+const studentApi = {
+   fetchStudents: () => axios.get(BASE_URL),
+   deleteStudent: (id) => axios.delete(`${BASE_URL}/${id}`),
+   editStudent: (id, studentData) => axios.put(`${BASE_URL}/${id}`, studentData),
+   addStudent: (studentData) => axios.post(BASE_URL, studentData),
 };
 
-export default StudentApi;
+export default studentApi;

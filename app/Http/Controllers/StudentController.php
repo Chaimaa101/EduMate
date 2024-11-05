@@ -37,6 +37,11 @@ class StudentController extends Controller
         return Student::findOrFail($student->id);
     }
 
+    public function countStudents()
+{
+    $totalStudents = Student::count();
+    return response()->json(['totalStudents' => $totalStudents]);
+}
     /**
      * Update the specified resource in storage.
      */

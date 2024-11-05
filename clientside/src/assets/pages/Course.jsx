@@ -14,6 +14,7 @@ function Course() {
     const [price, setPrice] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [courses, setCourses] = useState([]);
+    const [selectedCourseId, setSelectedCourseId] = useState(null);
 
     const fetchCourses = async () => {
         try {
@@ -25,15 +26,41 @@ function Course() {
         }
     };
 
-const deleteCourse = async (id) => {
-    try{
-        await axios.delete(`http://localhost:8000/api/cours/${id}`);
-        console.log('Course deleted successfully');
-        fetchCourses();
-    } catch(error){
-        console.error('Error deleting Course:', error);
+    const updateCourse = (course) => {
+        setTitle(course.title);
+        setContent(course.content);
+        setImage(course.image);
+        setPrice(course.price);
+        setSelectedCourseId(course.id);
+        setIsEditFormVisible(true);
+    };
+
+    const editCourse = async (event) => {
+        event.preventDefault();
+        const errors = addCourseValidate();
+        setErrors(errors);
+
+        try {
+            const courseData = { title, content, image, price };
+            const res = await axios.put(`http://localhost:8000/api/cours/${selectedCourseId}`, courseData);
+
+            console.log("Course updated successfully:", res.data.data);
+            fetchCourses();
+            setIsEditFormVisible(false);
+        } catch (error) {
+            console.error("Error updating course:", error);
+        }
     }
-}
+
+    const deleteCourse = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/cours/${id}`);
+            console.log('Course deleted successfully');
+            fetchCourses();
+        } catch (error) {
+            console.error('Error deleting Course:', error);
+        }
+    }
 
     const addCourse = async (event) => {
         event.preventDefault();
@@ -158,6 +185,7 @@ const deleteCourse = async (id) => {
                                     >
                                         <Trash size={20} />
                                     </button>
+
                                     <div className="relative w-full h-[220px] overflow-hidden rounded-t-lg">
                                         <img
                                             className="w-full h-full object-cover transition-transform duration-300 ease-in-out"
@@ -198,7 +226,7 @@ const deleteCourse = async (id) => {
                         ) : (
                             <div className="mx-auto col-start-1 col-end-7">
                                 <p className="text-center py-4 text-[#9ca3af]">
-                                    No blogs found.
+                                    No courses found.
                                 </p>
                             </div>
                         )}
@@ -366,7 +394,7 @@ const deleteCourse = async (id) => {
                 <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     cours Information
                 </h2>
-                <form onSubmit={addCourse} className="space-y-4">
+                <form onSubmit={editCourse} className="space-y-4">
                     {/** Title Field **/}
                     <div>
                         <label
