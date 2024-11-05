@@ -5,10 +5,12 @@ import { useNavigate, Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 // import axios from "axios";
 
-function SignIn() {
+function SignUp() {
     const [isColse, setIsColse] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
@@ -27,15 +29,31 @@ function SignIn() {
         let errorsInput = validate();
         setErrors(errorsInput);
         if (Object.keys(errorsInput).length === 0) {
-            toast.success("Login successful!");
-                setTimeout(() => {
-                    navigate("/profile");           
-            }, 600);
+            toast.success("Sign up successful!");
+            // Add a delay before navigating
+            setTimeout(() => {
+                navigate("/profile");
+            }, 600); // Adjust the time (in milliseconds) as needed
         }
     };
 
     const validate = () => {
         const error = {};
+        if (!firstName || firstName.trim() === "") {
+            error.firstName = "First Name is required";
+        } else if (firstName.length < 3) {
+            error.firstName = "First Name must be 3 characters";
+        } else if (/\d/.test(firstName)) {
+            error.firstName = `Firse Name cannot contain numbers`;
+        }
+
+        if (!lastName || lastName.trim() === "") {
+            error.lastName = "Last Name is required";
+        } else if (lastName.length < 3) {
+            error.lastName = "Last Name must be 3 characters";
+        } else if (/\d/.test(lastName)) {
+            error.lastName = `Last Name cannot contain numbers`;
+        }
 
         if (!email || email.trim() === "") {
             error.email = "Email is Required";
@@ -68,7 +86,7 @@ function SignIn() {
                         </h1>
                     </div>
                     <h4 className="text-lg font-bold uppercase text-center mb-1 text-gray-800 dark:text-gray-200">
-                        Sign In
+                        Sign Up
                     </h4>
                     <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-2">
                         Enter your credentials to access your account
@@ -86,6 +104,66 @@ function SignIn() {
                         method="POST"
                         className="flex flex-col gap-y-3"
                     >
+                        <div className="flex items-center gap-2">
+                            <div className="flex flex-col">
+                                <label
+                                    className="font-semibold text-sm text-gray-600 dark:text-gray-400 mb-1"
+                                    htmlFor="firstname"
+                                >
+                                    First Name
+                                </label>
+                                <input
+                                    className={`${
+                                        errors.firstName
+                                            ? "border-red-600"
+                                            : "border-gray-300 dark:border-gray-500"
+                                    } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
+                                    type="text"
+                                    value={firstName}
+                                    name="firstname"
+                                    id="firstname"
+                                    placeholder="Enter your first name"
+                                    onChange={(e) =>
+                                        setFirstName(e.target.value)
+                                    }
+                                />
+                                {errors.firstName && (
+                                    <p className="text-red-600 text-sm font-thin pl-1">
+                                        {errors.firstName}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label
+                                    className="font-semibold text-sm text-gray-600 dark:text-gray-400 mb-1"
+                                    htmlFor="lastname"
+                                >
+                                    Last Name
+                                </label>
+                                <input
+                                    className={`${
+                                        errors.lastName
+                                            ? "border-red-600"
+                                            : "border-gray-300 dark:border-gray-500"
+                                    } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
+                                    type="text"
+                                    value={lastName}
+                                    name="lastname"
+                                    id="lastname"
+                                    placeholder="Enter your last name"
+                                    onChange={(e) =>
+                                        setLastName(e.target.value)
+                                    }
+                                />
+                                {errors.lastName && (
+                                    <p className="text-red-600 text-sm font-thin pl-1">
+                                        {errors.lastName}
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
                         <div className="flex flex-col">
                             <label
                                 className="font-semibold text-sm text-gray-600 dark:text-gray-400 mb-1"
@@ -151,27 +229,21 @@ function SignIn() {
                                     )}
                                 </span>
                             </div>
-                            <Link
-                                to={"/resetpassword"}
-                                className="ml-auto text-xs mt-2 text-blue-600 dark:text-blue-400  w-fit"
-                            >
-                                Forget password ?
-                            </Link>
                         </div>
                         <motion.input
                             whileTap={{ scale: 0.95 }}
                             className="bg-blue-600 dark:bg-blue-400 p-2 text-white dark:text-gray-900 uppercase font-normal cursor-pointer rounded-sm"
                             type="submit"
-                            value="sign in"
+                            value="sign Up"
                         />
                     </form>
                     <p className="text-center text-xs mt-2 text-gray-600 dark:text-gray-400">
-                        Don&apos;t have an accounte?{" "}
+                        Already have an accounte?{" "}
                         <Link
-                            to="/"
+                            to="/signin"
                             className="text-blue-600 dark:text-blue-400 underline cursor-pointer"
                         >
-                            Create new one
+                            Sign in
                         </Link>
                     </p>
                 </motion.div>
@@ -180,4 +252,4 @@ function SignIn() {
     );
 }
 
-export default SignIn;
+export default SignUp;

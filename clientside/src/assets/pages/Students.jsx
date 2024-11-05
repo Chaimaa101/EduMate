@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function Students() {
     const [showFormAdd, isShowFormAdd] = useState(false);
@@ -79,6 +80,11 @@ function Students() {
         } catch (error) {
             console.error("Error creating Student:", error);
         }
+        if (Object.keys(errors).length === 0) {
+            isShowFormAdd(false);
+            isShowFormEdit(false);
+            toast.success("Task completed successfully");
+        }
     };
 
     useEffect(() => {
@@ -136,13 +142,16 @@ function Students() {
     const filteredStudents = useMemo(() => {
         return Array.isArray(students)
             ? students.filter((student) =>
-                student.firstname.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+                  student.firstname
+                      .toLowerCase()
+                      .includes(searchTerm.toLowerCase())
+              )
             : [];
     }, [students, searchTerm]);
 
     return (
         <>
+            <Toaster />
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Students"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">

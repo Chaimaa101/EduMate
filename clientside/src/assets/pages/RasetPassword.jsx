@@ -35,7 +35,7 @@ export default function RasetPassword() {
                 <p className="mt-4 text-gray-500 dark:text-gray-300">
                     We can&apos;t find that page.
                 </p>
-                <Link to={"/"}
+                <Link to={"/signin"}
                 className="block w-fit mx-auto my-4 bg-blue-500 text-white dark:bg-blue-600 dark:text-gray-100 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500"
                 >Go Back To Sign In</Link>
             </motion.div>

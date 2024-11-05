@@ -2,6 +2,7 @@ import Header from "../components/common/Header";
 import { motion } from "framer-motion";
 import { Search, ShoppingCart, Trash } from "lucide-react";
 import { useMemo, useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 
 function Course() {
@@ -17,23 +18,23 @@ function Course() {
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/cours');
+            const response = await axios.get("http://localhost:8000/api/cours");
             setCourses(response.data.data);
-            console.log('Fetched Courses: ', response);
+            console.log("Fetched Courses: ", response);
         } catch (error) {
-            console.error('Error fetching courses:', error);
+            console.error("Error fetching courses:", error);
         }
     };
 
-const deleteCourse = async (id) => {
-    try{
-        await axios.delete(`http://localhost:8000/api/cours/${id}`);
-        console.log('Course deleted successfully');
-        fetchCourses();
-    } catch(error){
-        console.error('Error deleting Course:', error);
-    }
-}
+    const deleteCourse = async (id) => {
+        try {
+            await axios.delete(`http://localhost:8000/api/cours/${id}`);
+            console.log("Course deleted successfully");
+            fetchCourses();
+        } catch (error) {
+            console.error("Error deleting Course:", error);
+        }
+    };
 
     const addCourse = async (event) => {
         event.preventDefault();
@@ -47,20 +48,25 @@ const deleteCourse = async (id) => {
                 image,
                 price,
             };
-            const res = await axios.post('http://localhost:8000/api/cours', courseData);
+            const res = await axios.post(
+                "http://localhost:8000/api/cours",
+                courseData
+            );
             console.log("New Course Added:", res.data.data);
             fetchCourses();
 
-            setTitle('');
-            setContent('');
-            setImage('');
-            setPrice('');
+            setTitle("");
+            setContent("");
+            setImage("");
+            setPrice("");
         } catch (error) {
-            console.error('Error creating course:', error);
+            console.error("Error creating course:", error);
         }
-        isShowFormAdd(false)
+        if (Object.keys(errors).length === 0) {
+            isShowFormAdd(false);
+            toast.success("Addition successful!");
+        }
     };
-
 
     useEffect(() => {
         fetchCourses();
@@ -103,12 +109,15 @@ const deleteCourse = async (id) => {
 
     const filterCourses = useMemo(() => {
         return courses.filter((course) => {
-            return course.title.toLowerCase().includes(searchTerm.toLowerCase());
+            return course.title
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
         });
     }, [courses, searchTerm]);
 
     return (
         <>
+            <Toaster />
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Courses"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
@@ -211,8 +220,9 @@ const deleteCourse = async (id) => {
                 onClick={() => {
                     isShowFormAdd(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormAdd ? "block" : "hidden"
-                    }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
+                    showFormAdd ? "block" : "hidden"
+                }`}
             ></div>
             {/* form  */}
             <div
@@ -263,11 +273,8 @@ const deleteCourse = async (id) => {
                             id="image"
                             name="image"
                             value={image}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${errors.image &&
-                                "border-red-500 dark:border-red-500"
-                                }
+                        ${errors.image && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="https://example.com/image.jpg"
@@ -293,11 +300,11 @@ const deleteCourse = async (id) => {
                             name="content"
                             rows="4"
                             value={content}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${errors.content &&
-                                "border-red-500 dark:border-red-500"
-                                }
+                        ${
+                            errors.content &&
+                            "border-red-500 dark:border-red-500"
+                        }
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="Write your course description..."
@@ -323,7 +330,6 @@ const deleteCourse = async (id) => {
                             id="price"
                             name="price"
                             value={price}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
                         ${errors.price && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
@@ -355,8 +361,9 @@ const deleteCourse = async (id) => {
                 onClick={() => {
                     isShowFormEdit(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormEdit ? "block" : "hidden"
-                    }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
+                    showFormEdit ? "block" : "hidden"
+                }`}
             ></div>
             {/* form  */}
             <div
@@ -407,11 +414,8 @@ const deleteCourse = async (id) => {
                             id="image"
                             name="image"
                             value={image}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${errors.image &&
-                                "border-red-500 dark:border-red-500"
-                                }
+                        ${errors.image && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="https://example.com/image.jpg"
@@ -437,11 +441,11 @@ const deleteCourse = async (id) => {
                             name="content"
                             rows="4"
                             value={content}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
-                        ${errors.content &&
-                                "border-red-500 dark:border-red-500"
-                                }
+                        ${
+                            errors.content &&
+                            "border-red-500 dark:border-red-500"
+                        }
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                         focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="Write your course description..."
@@ -467,7 +471,6 @@ const deleteCourse = async (id) => {
                             id="price"
                             name="price"
                             value={price}
-
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3
                         ${errors.price && "border-red-500 dark:border-red-500"}
                         bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500

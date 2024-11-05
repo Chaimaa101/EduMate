@@ -76,16 +76,36 @@ export default function Profile() {
                             <div className="flex flex-col gap-2">
                                 <label
                                     className="text-lg font-semibold text-gray-700 dark:text-gray-300"
-                                    htmlFor="phone"
+                                    htmlFor="email"
                                 >
                                    Email:
                                 </label>
                                 <input
                                     className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
                                     type="text"
-                                    id="phone"
-                                    name="phone"
+                                    id="email"
+                                    name="email"
                                     value="example@domain.com"
+                                    readOnly
+                                />
+                            </div>
+
+
+                            {/* Email Input */}
+                            <div className="flex flex-col gap-2">
+                                <label
+                                    className="text-lg font-semibold text-gray-700 dark:text-gray-300"
+                                    htmlFor="password"
+                                >
+                                   Password:
+                                </label>
+                                <input
+                                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
+                                    type="text"
+                                    id="password"
+                                    name="password"
+                                    value="Tree!Rock17"
+                                    readOnly
                                 />
                             </div>
 
@@ -117,11 +137,11 @@ export default function Profile() {
                         {/* User Name and Email */}
                         <h3 className="font-bold text-3xl text-gray-800 dark:text-white">
                             {/* ${user.firstname}${user.lastname} */}
+                            Israe Afkir
                         </h3>
-                        <p className="font-semibold text-2xl text-gray-700 dark:text-gray-300">Israe Afkir</p>
-                        <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
+                            <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
                             example@domain.com
-                        </p>
+                            </p>
                     </motion.div>
                 </main>
             </div>
