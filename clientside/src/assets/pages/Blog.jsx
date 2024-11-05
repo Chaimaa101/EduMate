@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Trash, Search } from "lucide-react";
 import { useMemo, useState, useEffect } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function Blog() {
     const [showFormAdd, isShowFormAdd] = useState(false);
@@ -65,6 +66,13 @@ function Blog() {
             setTag3("");
         } catch (error) {
             console.error("Error creating blog:", error);
+<<<<<<< HEAD
+=======
+        }
+        if (Object.keys(errors).length === 0) {
+            isShowFormAdd(false);
+            toast.success("Addition successful!");
+>>>>>>> SignIn&Profile
         }
     };
 
@@ -118,17 +126,26 @@ function Blog() {
         return error;
     };
 
+<<<<<<< HEAD
     //  logic for search
     const filterBlogs = useMemo(() => {
         return Array.isArray(blogs)
             ? blogs.filter((blog) =>
                 blog.title.toLowerCase().includes(searchTerm.toLowerCase())
             )
+=======
+    const filterBlogs = useMemo(() => {
+        return Array.isArray(blogs)
+            ? blogs.filter((blog) =>
+                    blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+>>>>>>> SignIn&Profile
             : [];
     }, [blogs, searchTerm]);
 
     return (
         <>
+            <Toaster />
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Blogs"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
@@ -416,7 +433,10 @@ function Blog() {
                     </div>
                 </form>
             </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> SignIn&Profile
         </>
     );
 }
