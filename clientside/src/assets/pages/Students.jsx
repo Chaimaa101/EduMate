@@ -4,6 +4,7 @@ import { Search } from "lucide-react";
 import { Pencil, Trash } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function Students() {
     const [showFormAdd, isShowFormAdd] = useState(false);
@@ -15,7 +16,11 @@ function Students() {
     const [dateAdmission, setDate] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [students, setStudents] = useState([]);
-     const [selectedStudentId, setSelectedStudentId] = useState(null); 
+    const [selectedStudentId, setSelectedStudentId] = useState(null);
+    const [updatefirstname, setupdatefirstname] = useState("");
+    const [updatelastname, setupdatelastname] = useState("");
+    const [updatephone, setupdatePhone] = useState("");
+    const [updatedateAdmission, setupsateDate] = useState("");
 
     const fetchStudents = async () => {
         try {
@@ -40,10 +45,10 @@ function Students() {
     };
 
     const updateStudent = (student) => {
-        setfirstname(student.firstname);
-        setlastname(student.lastname);
-        setPhone(student.phone);
-        setDate(student.dateAdmission);
+        setupdatefirstname(student.firstname);
+        setupdatelastname(student.lastname);
+        setupdatePhone(student.phone);
+        setupdateDate(student.dateAdmission);
         setSelectedStudentId(student.id); // Set the selected student ID
         isShowFormEdit(true); // Show the edit form
     };
@@ -94,6 +99,11 @@ function Students() {
             setDate("");
         } catch (error) {
             console.error("Error creating Student:", error);
+        }
+        if (Object.keys(errors).length === 0) {
+            isShowFormAdd(false);
+            isShowFormEdit(false);
+            toast.success("Task completed successfully");
         }
     };
 
@@ -152,13 +162,16 @@ function Students() {
     const filteredStudents = useMemo(() => {
         return Array.isArray(students)
             ? students.filter((student) =>
-                student.firstname.toLowerCase().includes(searchTerm.toLowerCase())
+                student.firstname
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase())
             )
             : [];
     }, [students, searchTerm]);
 
     return (
         <>
+            <Toaster />
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Students"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
@@ -307,15 +320,14 @@ function Students() {
                     </motion.div>
                 </main>
             </div>
-         
-           {/* This is Add form */}
+
+            {/* This is Add form */}
             <div
                 onClick={() => {
                     isShowFormAdd(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
-                    showFormAdd ? "block" : "hidden"
-                }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormAdd ? "block" : "hidden"
+                    }`}
             ></div>
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
@@ -448,9 +460,8 @@ function Students() {
                 onClick={() => {
                     isShowFormEdit(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
-                    showFormEdit ? "block" : "hidden"
-                }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormEdit ? "block" : "hidden"
+                    }`}
             ></div>
             <div
                 className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
@@ -473,13 +484,13 @@ function Students() {
                             type="text"
                             id="firstname"
                             name="firstname"
-                            value={firstname}
+                            value={updatefirstname}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.firstname && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="John Doe"
-                            onChange={(e) => setfirstname(e.target.value)}
+                            onChange={(e) => setupdatefirstname(e.target.value)}
                         />
                         {errors.firstname && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -500,13 +511,13 @@ function Students() {
                             type="text"
                             id="lastname"
                             name="lastname"
-                            value={lastname}
+                            value={updatelastname}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.lastname && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="you@example.com"
-                            onChange={(e) => setlastname(e.target.value)}
+                            onChange={(e) => setupdatelastname(e.target.value)}
                         />
                         {errors.lastname && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -527,13 +538,13 @@ function Students() {
                             type="tel"
                             id="phone"
                             name="phone"
-                            value={phone}
+                            value={updatephone}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.phone && "border-red-500 dark:border-red-500"} 
                 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="+123456789"
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={(e) => setupdatePhone(e.target.value)}
                         />
                         {errors.phone && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -554,12 +565,12 @@ function Students() {
                             type="date"
                             id="admission"
                             name="dateAdmission"
-                            value={dateAdmission}
+                            value={updatedateAdmission}
                             className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
                 ${errors.date && "border-red-500 dark:border-red-500"} 
                 text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
                 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            onChange={(e) => setDate(e.target.value)}
+                            onChange={(e) => setupdateDate(e.target.value)}
                         />
                         {errors.date && (
                             <p className="text-red-500 text-sm font-normal pl-1">

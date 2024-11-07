@@ -1,7 +1,9 @@
-import { LogOut, Moon, Sun } from "lucide-react";
+import { LogOut, Moon, Sun, } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../ThemeContext/ThemeContext";
+import toast, { Toaster } from "react-hot-toast";
+import { useUser } from "../../pages/UserContext";
 
 // eslint-disable-next-line react/prop-types
 function Header({ title }) {
@@ -9,19 +11,43 @@ function Header({ title }) {
     const [showAlert, setShowAlert] = useState(false);
     const navigate = useNavigate();
 
+    const {user} = useUser();
+
     const handleLogout = () => {
         setShowAlert(true);
         setShowEmail(false);
+        setUser(null);  
+        navigate("/signin");
+        
     };
 
     const confirmLogout = () => {
-        navigate("/");
+        toast.success("You have successfully logged out!");
+        setTimeout(() => {
+            navigate("/");
+        }, 600);
     };
 
     const { theme, toggleTheme } = useTheme();
 
+    const handleSwitchTheme = () => {
+        toggleTheme()
+        const newTheme = theme === "dark" ? "light" : "dark"; // Assuming these are your themes
+        toast(`Switched to ${newTheme} theme!`, {
+            icon: '🎨',
+            style: {
+                borderRadius: '10px',
+                background: '#ffffff', // Light background
+                color: '#333333', // Dark text color
+                padding: '10px',
+                boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+            },
+        });
+    }
+
     return (
         <>
+            <Toaster />
             <div className="flex items-center justify-between bg-gray-200 dark:bg-gray-800 py-2.5 px-8 border-b border-gray-300 dark:border-gray-700 relative">
                 <p className="font-semibold text-lg text-gray-800 dark:text-white">
                     {title}
@@ -30,7 +56,7 @@ function Header({ title }) {
                     <button
                         id="theme-toggle"
                         className="text-gray-800 dark:text-gray-200"
-                        onClick={toggleTheme}
+                        onClick={handleSwitchTheme}
                     >
                         {theme === "dark" ? (
                             <Sun size={30} />
@@ -43,7 +69,8 @@ function Header({ title }) {
                         className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
                     >
                         <span className="font-semibold text-lg text-white">
-                            IA
+                            {user.firstname.charAt(0) || ""}{user.lastname.charAt(0) || ""}
+
                         </span>
                     </div>
                 </div>
@@ -51,10 +78,10 @@ function Header({ title }) {
                     <div className="absolute py-4 px-4 top-[70px] right-4 bg-gray-200 dark:bg-gray-800 z-20 border-2 border-gray-300 dark:border-white rounded-md">
                         <div className="border-b pb-3 border-gray-300 dark:border-gray-600">
                             <p className="font-bold text-gray-800 dark:text-white">
-                                Younes Boukrim
+                                {user.firstname }{user.lastname}
                             </p>
                             <small className="font-semibold text-gray-600 dark:text-gray-400">
-                                younes@gmail.com
+                                example@domain.com
                             </small>
                         </div>
                         <button

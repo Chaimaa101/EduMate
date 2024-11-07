@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Trash, Search } from "lucide-react";
 import { useMemo, useState, useEffect } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 function Blog() {
     const [showFormAdd, isShowFormAdd] = useState(false);
-    const [showFormEdit, isShowFormEdit] = useState(false);
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
@@ -20,50 +20,21 @@ function Blog() {
 
     const fetchBlogs = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/blogs');
+            const response = await axios.get("http://localhost:8000/api/blogs");
             setBlogs(response.data.data);
-            console.log('Fetched blogs:', response);
+            console.log("Fetched blogs:", response);
         } catch (error) {
             console.error('Error fetching blogs:', error);
         }
     };
 
-     const updateBlog = (blog) => {
-      setTitle(blog.title);
-      setContent(blog.content);
-      setImage(blog.image);
-      settag1(blog.tag1);
-      settag2(blog.tag2);
-      settag3(blog.tag3);
-      setSelectedStudentId(blog.id);
-      setIsEditFormVisible(true);
-   };
-
-   const editBlog = async (event) => {
-      event.preventDefault();
-      const errors = addStudentValidate();
-      setErrors(errors);
-
-      if (!Object.keys(errors).length) {
-         try {
-            const blogData = { title, content, image, tag1, tag2 , tag3};
-            const res = await  axios.post('http://localhost:8000/api/blogs', blogData);
-            console.log("Blog updated successfully:", res.data.data);
-            fetchStudents();
-            setIsEditFormVisible(false);
-         } catch (error) {
-            console.error("Error updating blog:", error);
-         }
-      }
-   };
-
     const deleteBlog = async (id) => {
         try {
             await axios.delete(`http://localhost:8000/api/blogs/${id}`);
-            console.log('Blog deleted successfully');
+            console.log("Blog deleted successfully");
             fetchBlogs();
         } catch (error) {
-            console.error('Error deleting blog:', error);
+            console.error("Error deleting blog:", error);
         }
     };
 
@@ -81,25 +52,31 @@ function Blog() {
                 tag2,
                 tag3,
             };
-            const res = await axios.post('http://localhost:8000/api/blogs', blogData);
+            const res = await axios.post(
+                "http://localhost:8000/api/blogs",
+                blogData
+            );
             console.log("New Blog Added:", res.data.data);
             fetchBlogs();
 
-            setTitle('');
-            setContent('');
-            setImage('');
-            setTag1('');
-            setTag2('');
-            setTag3('');
+            setTitle("");
+            setContent("");
+            setImage("");
+            setTag1("");
+            setTag2("");
+            setTag3("");
         } catch (error) {
-            console.error('Error creating blog:', error);
+            console.error("Error creating blog:", error);
+        }
+        if (Object.keys(errors).length === 0) {
+            isShowFormAdd(false);
+            toast.success("Addition successful!");
         }
     };
 
     useEffect(() => {
         fetchBlogs();
     }, []);
-
 
     const addBlogValidate = () => {
         const error = {};
@@ -147,16 +124,18 @@ function Blog() {
         return error;
     };
 
-
+    //  logic for search
     const filterBlogs = useMemo(() => {
-        return Array.isArray(blogs) ?
-            blogs.filter((blog) =>
-                blog.title.toLowerCase().includes(searchTerm.toLowerCase())
-            ) : [];
+        return Array.isArray(blogs)
+            ? blogs.filter((blog) =>
+                  blog.title.toLowerCase().includes(searchTerm.toLowerCase())
+              )
+            : [];
     }, [blogs, searchTerm]);
 
     return (
         <>
+            <Toaster />
             <div className="flex-1 relative overflow-auto z-10">
                 <Header title={"Blogs"} />
                 <main className="max-w-7xl mx-auto py-6 px-4 lg:px-8">
@@ -252,8 +231,9 @@ function Blog() {
                 onClick={() => {
                     isShowFormAdd(false);
                 }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormAdd ? "block" : "hidden"
-                    }`}
+                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${
+                    showFormAdd ? "block" : "hidden"
+                }`}
             ></div>
             {/* form  */}
             <div
@@ -283,7 +263,6 @@ function Blog() {
             focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="Enter Blog Title"
                             onChange={(e) => setTitle(e.target.value)}
-
                         />
                         {errors.title && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -311,7 +290,6 @@ function Blog() {
             focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="https://example.com/image.jpg"
                             onChange={(e) => setImage(e.target.value)}
-
                         />
                         {errors.image && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -339,7 +317,6 @@ function Blog() {
             focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                             placeholder="Write your blog content..."
                             onChange={(e) => setContent(e.target.value)}
-
                         />
                         {errors.content && (
                             <p className="text-red-500 text-sm font-normal pl-1">
@@ -363,13 +340,13 @@ function Blog() {
                                 name="tag1"
                                 value={tag1}
                                 className={`
-                                ${errors.tag1 &&
+                                ${
+                                    errors.tag1 &&
                                     "border-red-500 dark:border-red-500"
-                                    } 
+                                } 
                                 mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                                 placeholder="tag1"
                                 onChange={(e) => setTag1(e.target.value)}
-
                             />
                             {errors.tag1 && (
                                 <p className="text-red-500 text-sm font-normal pl-1">
@@ -390,15 +367,14 @@ function Blog() {
                                 id="tag2"
                                 name="tag2"
                                 value={tag2}
-
                                 className={`
-                                ${errors.tag2 &&
+                                ${
+                                    errors.tag2 &&
                                     "border-red-500 dark:border-red-500"
-                                    } 
+                                } 
                                 mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                                 placeholder="tag2"
                                 onChange={(e) => setTag2(e.target.value)}
-
                             />
                             {errors.tag2 && (
                                 <p className="text-red-500 text-sm font-normal pl-1">
@@ -420,13 +396,13 @@ function Blog() {
                                 name="tag3"
                                 value={tag3}
                                 className={`
-                                ${errors.tag3 &&
+                                ${
+                                    errors.tag3 &&
                                     "border-red-500 dark:border-red-500"
-                                    } 
+                                } 
                                 mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
                                 placeholder="tag3"
                                 onChange={(e) => setTag3(e.target.value)}
-
                             />
                             {errors.tag3 && (
                                 <p className="text-red-500 text-sm font-normal pl-1">
@@ -443,209 +419,6 @@ function Blog() {
                             className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
                         >
                             ADD BLOG
-                        </button>
-                    </div>
-                </form>
-            </div>
-            {/* -------------------------------------------------- Edit form -------------------------------------------- */}
-            {/* black w-screen */}
-            <div
-                onClick={() => {
-                    isShowFormEdit(false);
-                }}
-                className={`fixed top-0 left-0 right-0 bottom-0 bg-black opacity-70 z-[100] cursor-pointer flex items-center justify-center ${showFormEdit ? "block" : "hidden"
-                    }`}
-            ></div>
-            {/* form  */}
-            <div
-                className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md transition-all duration-500 z-[10000] 
-    ${showFormEdit ? "block" : "hidden"}`}
-            >
-                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
-                    blog Information
-                </h2>
-                <form onSubmit={editBlog} className="space-y-4">
-                    {/** Title Field **/}
-                    <div>
-                        <input type="hidden" value={selectedBlogId} />
-
-                        <label
-                            htmlFor="title"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                            Title
-                        </label>
-                        <input
-                            type="text"
-                            id="title"
-                            name="title"
-                            value={title}
-                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-            ${errors.title && "border-red-500 dark:border-red-500"} 
-            bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
-            focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            placeholder="Enter Blog Title"
-                            onChange={(e) => setTitle(e.target.value)}
-
-                        />
-                        {errors.title && (
-                            <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.title}
-                            </p>
-                        )}
-                    </div>
-
-                    {/** Image Field **/}
-                    <div>
-                        <label
-                            htmlFor="image"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                            Image
-                        </label>
-                        <input
-                            type="text"
-                            id="image"
-                            name="image"
-                            value={image}
-                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-            ${errors.image && "border-red-500 dark:border-red-500"} 
-            bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
-            focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            placeholder="https://example.com/image.jpg"
-                            onChange={(e) => setImage(e.target.value)}
-
-                        />
-                        {errors.image && (
-                            <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.image}
-                            </p>
-                        )}
-                    </div>
-
-                    {/** Content Field **/}
-                    <div>
-                        <label
-                            htmlFor="content"
-                            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                        >
-                            Content
-                        </label>
-                        <textarea
-                            id="content"
-                            name="content"
-                            rows="4"
-                            value={content}
-                            className={`mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 
-            ${errors.content && "border-red-500 dark:border-red-500"} 
-            bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500
-            focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                            placeholder="Write your blog content..."
-                            onChange={(e) => setContent(e.target.value)}
-
-                        />
-                        {errors.content && (
-                            <p className="text-red-500 text-sm font-normal pl-1">
-                                {errors.content}
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Tag Field */}
-                    <div className="grid grid-cols-3 gap-1">
-                        <div>
-                            <label
-                                htmlFor="tag1"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                            >
-                                Tag 1
-                            </label>
-                            <input
-                                type="text"
-                                id="tag1"
-                                name="tag1"
-                                value={tag1}
-                                className={`
-                                ${errors.tag1 &&
-                                    "border-red-500 dark:border-red-500"
-                                    } 
-                                mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                                placeholder="tag1"
-                                onChange={(e) => setTag1(e.target.value)}
-
-                            />
-                            {errors.tag1 && (
-                                <p className="text-red-500 text-sm font-normal pl-1">
-                                    {errors.tag1}
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="tag2"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                            >
-                                Tag 2
-                            </label>
-                            <input
-                                type="text"
-                                id="tag2"
-                                name="tag2"
-                                value={tag2}
-
-                                className={`
-                                ${errors.tag2 &&
-                                    "border-red-500 dark:border-red-500"
-                                    } 
-                                mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                                placeholder="tag2"
-                                onChange={(e) => setTag2(e.target.value)}
-
-                            />
-                            {errors.tag2 && (
-                                <p className="text-red-500 text-sm font-normal pl-1">
-                                    {errors.tag2}
-                                </p>
-                            )}
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="tag3"
-                                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                            >
-                                Tag 3
-                            </label>
-                            <input
-                                type="text"
-                                id="tag3"
-                                name="tag3"
-                                value={tag3}
-                                className={`
-                                ${errors.tag3 &&
-                                    "border-red-500 dark:border-red-500"
-                                    } 
-                                mt-1 block w-full border-[1.5px] border-gray-300 dark:border-gray-700 rounded-md shadow-sm py-2 px-3 bg-transparent text-gray-800 dark:text-gray-300 placeholder-gray-400 dark:placeholder-gray-500 focus:ring-blue-500 focus:border-blue-500 sm:text-sm dark:bg-gray-700`}
-                                placeholder="tag3"
-                                onChange={(e) => setTag3(e.target.value)}
-
-                            />
-                            {errors.tag3 && (
-                                <p className="text-red-500 text-sm font-normal pl-1">
-                                    {errors.tag3}
-                                </p>
-                            )}
-                        </div>
-                    </div>
-
-                    {/** Submit Button **/}
-                    <div>
-                        <button
-                            type="submit"
-                            className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
-                        >
-                            EDIT BLOG
                         </button>
                     </div>
                 </form>

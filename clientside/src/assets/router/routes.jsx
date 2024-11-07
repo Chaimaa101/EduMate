@@ -9,10 +9,15 @@ import Students from "../pages/Students";
 import Profile from "../pages/Profile";
 import ErrorPage from "../pages/ErrorPage";
 import Questionswer from "../pages/Questionswer";
+import SignUp from "../pages/SignUp";
 
 export const router = createBrowserRouter([
     {
         path: "/",
+        element: <SignUp />,
+    },
+    {
+        path: "/signin",
         element: <SignIn />,
     },
     {

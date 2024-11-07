@@ -17,8 +17,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::apiResources([
     'students' => StudentController::class,
-    'teachers' => teachercontroller::class,
     'cours' => CoursController::class,
     'blogs' => BlogController::class,
 
 ]);
+
+Route::post('/createUser', [UserController::class, 'createUser']);
+Route::put('/updateUser/{id}',[ UserController::class , 'updateUser']);
+
