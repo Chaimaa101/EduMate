@@ -69,7 +69,8 @@ function Header({ title }) {
                         className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full cursor-pointer"
                     >
                         <span className="font-semibold text-lg text-white">
-                            {user.firstname.charAt(0) || ""}{user.lastname.charAt(0) || ""}
+                          {(user.firstname.charAt(0).toUpperCase() || " ")}{(user.lastname.charAt(0).toUpperCase() || " ")}
+
 
                         </span>
                     </div>
@@ -78,7 +79,7 @@ function Header({ title }) {
                     <div className="absolute py-4 px-4 top-[70px] right-4 bg-gray-200 dark:bg-gray-800 z-20 border-2 border-gray-300 dark:border-white rounded-md">
                         <div className="border-b pb-3 border-gray-300 dark:border-gray-600">
                             <p className="font-bold text-gray-800 dark:text-white">
-                                {user.firstname }{user.lastname}
+                                {user.firstname } {user.lastname}
                             </p>
                             <small className="font-semibold text-gray-600 dark:text-gray-400">
                                 example@domain.com

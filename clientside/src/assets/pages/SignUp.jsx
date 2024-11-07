@@ -26,13 +26,19 @@ function SignUp() {
         }
         setIsColse(!isColse);
     };
+    const userData = {
+        firstname: firstname,
+        lastname: lastname,
+        email: `${firstname}.${lastname}@domain.com`,
+        password: `${firstname}@123456`
+    };
+
 
     const handleSubmit = async (event) => {
-    event.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
+        event.preventDefault();
+        const validationErrors = validate();
+        setErrors(validationErrors);
 
-        const userData = { firstname: firstname, lastname: lastname };
 
         try {
 
@@ -75,17 +81,26 @@ function SignUp() {
             error.lastname = `Last Name cannot contain numbers`;
         }
 
+        // Validate Email
         if (!email || email.trim() === "") {
             error.email = "Email is Required";
-        } else if (email !== "example@domain.com") {
-            error.email = "Email must be 'example@domain.com'";
+        } else {
+            const expectedEmail = `${firstname}.${lastname}@domain.com`;
+            if (email !== expectedEmail) {
+                error.email = `Email must be '${expectedEmail}'`;
+            }
         }
 
+        // Validate Password
         if (!password || password.trim() === "") {
             error.password = "Password is Required";
-        } else if (password !== "Tree!Rock17") {
-            error.password = "Password must be 'Tree!Rock17'";
+        } else {
+            const expectedPassword = `${firstname}@123456`; // Password format: firstname@123456
+            if (password !== expectedPassword) {
+                error.password = `Password must be '${expectedPassword}'`;
+            }
         }
+
         return error;
     };
 
@@ -113,10 +128,10 @@ function SignUp() {
                     </p>
                     <div className="flex flex-col justify-center items-center mb-5">
                         <p className="text-sm font-semibold italic text-gray-800 dark:text-gray-200">
-                            <strong>Email:</strong> example@domain.com
+                            <strong>Email:</strong> firastname.lastname@domain.com
                         </p>
                         <p className="text-sm font-semibold italic text-gray-800 dark:text-gray-200">
-                            <strong>Password:</strong> Tree!Rock17
+                            <strong>Password:</strong> firstname@123456
                         </p>
                     </div>
                     <form
@@ -133,8 +148,8 @@ function SignUp() {
                                 </label>
                                 <input
                                     className={`${errors.firstname
-                                            ? "border-red-600"
-                                            : "border-gray-300 dark:border-gray-500"
+                                        ? "border-red-600"
+                                        : "border-gray-300 dark:border-gray-500"
                                         } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
                                     type="text"
                                     value={firstname}
@@ -161,8 +176,8 @@ function SignUp() {
                                 </label>
                                 <input
                                     className={`${errors.lastname
-                                            ? "border-red-600"
-                                            : "border-gray-300 dark:border-gray-500"
+                                        ? "border-red-600"
+                                        : "border-gray-300 dark:border-gray-500"
                                         } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
                                     type="text"
                                     value={lastname}
@@ -189,23 +204,16 @@ function SignUp() {
                                 Email
                             </label>
                             <input
-                                className={`${errors.email
-                                        ? "border-red-600"
-                                        : "border-gray-300 dark:border-gray-500"
-                                    } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
+                                className="w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700"
                                 type="email"
-                                value={email}
+                                value={userData.email}
                                 name="email"
                                 id="email"
                                 placeholder="Enter your email"
-                                onChange={(e) => setEmail(e.target.value)}
+                                readOnly
                             />
-                            {errors.email && (
-                                <p className="text-red-600 text-sm font-thin pl-1">
-                                    {errors.email}
-                                </p>
-                            )}
                         </div>
+
                         <div className="flex flex-col">
                             <label
                                 className="font-semibold text-sm text-gray-600 dark:text-gray-400 mb-1"
@@ -215,24 +223,14 @@ function SignUp() {
                             </label>
                             <div className="relative">
                                 <input
-                                    className={`${errors.password
-                                            ? "border-red-600"
-                                            : "border-gray-300 dark:border-gray-500"
-                                        } w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700`}
+                                    className="w-full border-[1.5px] p-2 rounded-sm text-gray-800 dark:text-gray-200 text-sm outline-none focus:border-2 placeholder:text-sm dark:bg-gray-700"
                                     type="password"
                                     name="password"
-                                    value={password}
+                                    value={userData.password}
                                     id="password"
                                     placeholder="Enter your password"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
+                                    readOnly
                                 />
-                                {errors.password && (
-                                    <p className="text-red-600 text-sm font-thin pl-1">
-                                        {errors.password}
-                                    </p>
-                                )}
                                 <span
                                     onClick={toggleEye}
                                     className="absolute text-gray-500 dark:text-gray-400 top-[10px] right-[8px] cursor-pointer"
@@ -245,6 +243,7 @@ function SignUp() {
                                 </span>
                             </div>
                         </div>
+
                         <motion.input
                             whileTap={{ scale: 0.95 }}
                             className="bg-blue-600 dark:bg-blue-400 p-2 text-white dark:text-gray-900 uppercase font-normal cursor-pointer rounded-sm"
@@ -253,7 +252,7 @@ function SignUp() {
                         />
                     </form>
                     <p className="text-center text-xs mt-2 text-gray-600 dark:text-gray-400">
-                        Already have an accounte?{" "}
+                        Already have an account?{" "}
                         <Link
                             to="/signin"
                             className="text-blue-600 dark:text-blue-400 underline cursor-pointer"

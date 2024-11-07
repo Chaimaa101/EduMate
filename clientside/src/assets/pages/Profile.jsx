@@ -13,15 +13,20 @@ export default function Profile() {
 
     useEffect(() => {
         if (!user) {
-            console.warn("User data is not available. Redirecting to signup...");
-            
+            console.warn("User data is not available. Redirecting to signup..."); 
         }
     }, [user]);
+
+     const userData = {
+        firstname: firstname,
+        lastname: lastname,
+        email: `${firstname}.${lastname}@domain.com`,
+        password: `${firstname}@123456`
+    };
 
     const updateUser = async (e) => {
         e.preventDefault();
         try {
-            const userData = { firstname, lastname };
             const res = await axios.put(`http://localhost:8000/api/updateUser/${user.id}`, userData);
             console.log("User information updated successfully:", res.data);
 
@@ -95,7 +100,7 @@ export default function Profile() {
                                     type="text"
                                     id="email"
                                     name="email"
-                                    value="example@domain.com"
+                                    value={user.email}
                                     readOnly
                                 />
                             </div>
@@ -114,7 +119,7 @@ export default function Profile() {
                                     type="text"
                                     id="password"
                                     name="password"
-                                    value="Tree!Rock17"
+                                    value={user.password}
                                     readOnly
                                 />
                             </div>
@@ -139,7 +144,8 @@ export default function Profile() {
                         {/* Profile Picture */}
                         <div className="w-20 h-20 bg-blue-500 dark:bg-blue-400 flex items-center justify-center rounded-full cursor-pointer">
                             <span className="font-semibold text-3xl text-white">
-                                {user.firstname.charAt(0) || " "}{user.lastname.charAt(0) || " "}
+                               {(user.firstname.charAt(0).toUpperCase() || " ")}{(user.lastname.charAt(0).toUpperCase() || " ")}
+
                             </span>
                         </div>
 
