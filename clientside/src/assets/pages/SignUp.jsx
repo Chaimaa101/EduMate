@@ -38,12 +38,10 @@ function SignUp() {
         event.preventDefault();
         const validationErrors = validate();
         setErrors(validationErrors);
-
-
         try {
 
-            const res = await axios.post("http://localhost:8000/api/createUser", userData);
-            console.log("New User Added:", res.data.data);
+            const res = await axios.post("http://localhost:8000/api/register", userData);
+            console.log("New User Added:", userData);
 
             setUser(userData);
             setfirstname("");
@@ -209,6 +207,9 @@ function SignUp() {
                                 value={userData.email}
                                 name="email"
                                 id="email"
+                                 onChange={(e) =>
+                                        setEmail(e.target.value)
+                                    }
                                 placeholder="Enter your email"
                                 readOnly
                             />
@@ -228,6 +229,9 @@ function SignUp() {
                                     name="password"
                                     value={userData.password}
                                     id="password"
+                                     onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     placeholder="Enter your password"
                                     readOnly
                                 />

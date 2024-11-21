@@ -4,15 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function login(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+
+        // Attempt to authenticate the user based on email and password
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)){
+            return response()->json([
+                'user' => $user,
+                
+            ]);
+        }
+
+        // If authentication fails, return error response
+        return response()->json(['error' => 'Unauthorized'], 401);
     }
 
     /**
@@ -31,6 +49,8 @@ class UserController extends Controller
         $infos =  $request->validate([
             'firstname' =>'required',
             'lastname' =>'required',
+            'email' =>'required',
+            'password' => 'required'
         ]);
         $user = User::create($infos);
     }
@@ -56,16 +76,20 @@ class UserController extends Controller
      */
     public function updateUser(Request $request, User $user)
     {
-        $infos =  $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'required',
+        // Validate input data
+        $validatedData = $request->validate([
+            'firstname' => 'nullable|string|max:255',
+            'lastname' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
-        $user->update($infos);
-    }
+        // Update the user
+        $user->update($validatedData);
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
+        return response()->json(['message' => 'User updated successfully'], 200);
+    }
+     
     public function destroy(User $user)
     {
         //

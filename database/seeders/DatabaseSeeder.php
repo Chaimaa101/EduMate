@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         Student::factory(20)->create();
         Blog::factory(20)->create();
         Cours::factory(20)->create();
+        User::factory(20)->create();
 
     }
 }

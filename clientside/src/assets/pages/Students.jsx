@@ -20,7 +20,7 @@ function Students() {
     const [updatefirstname, setupdatefirstname] = useState("");
     const [updatelastname, setupdatelastname] = useState("");
     const [updatephone, setupdatePhone] = useState("");
-    const [updatedateAdmission, setupsateDate] = useState("");
+    const [updatedateAdmission, setupdateDate] = useState("");
 
     const fetchStudents = async () => {
         try {

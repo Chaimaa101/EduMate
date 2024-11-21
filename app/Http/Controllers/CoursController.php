@@ -56,6 +56,7 @@ class CoursController extends Controller
     public function destroy(Cours $cours)
     {
         $cours->delete();
+        
         return new coursResource($cours);
     }
 }

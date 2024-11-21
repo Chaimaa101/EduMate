@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Header from "../components/common/Header";
 import {useEffect, useState } from "react";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "./UserContext";
 
 export default function Profile() {
@@ -9,31 +10,39 @@ export default function Profile() {
     const {user} = useUser();
     const [firstname, setfirstname] = useState(user?.firstname || ''); 
     const [lastname, setlastname] = useState(user?.lastname || '');
+    const [email, setemail] = useState(`${firstname}.${lastname}@domain.com`);
+    const [password, setpassword] = useState(`${firstname}@123456`);
 
 
     useEffect(() => {
         if (!user) {
-            console.warn("User data is not available. Redirecting to signup..."); 
+            console.warn("User data is not available. Redirecting to signup...");
+    // Redirect to signup or login page
+    window.location.href = "/signup";
         }
     }, [user]);
 
      const userData = {
-        firstname: firstname,
-        lastname: lastname,
-        email: `${firstname}.${lastname}@domain.com`,
-        password: `${firstname}@123456`
+        firstname,
+        lastname,
+        email ,
+        password
     };
 
-    const updateUser = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.put(`http://localhost:8000/api/updateUser/${user.id}`, userData);
-            console.log("User information updated successfully:", res.data);
-
-        } catch (error) {
-            console.error("Error updating information:", error);
-        }
-    };
+const updateUser = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.put(`http://localhost:8000/api/update/${user.id}`, userData);
+    if (res.status === 200) {
+      toast.success("Informations updated successful!");
+    } else {
+      throw new Error(`API error: ${res.statusText}`); // Or handle specific errors
+    }
+  } catch (error) {
+    console.error("Error updating information:", error);
+    toast.error("An error occurred while updating the User.");
+  }
+};
 
     
         return (
@@ -58,7 +67,7 @@ export default function Profile() {
                                 <input
                                     className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
                                     type="text"
-                                    id="firstName"
+                                    id="firstname"
                                     name="firstname"
                                     value={firstname}
                                     onChange={(e) =>
@@ -144,7 +153,7 @@ export default function Profile() {
                         {/* Profile Picture */}
                         <div className="w-20 h-20 bg-blue-500 dark:bg-blue-400 flex items-center justify-center rounded-full cursor-pointer">
                             <span className="font-semibold text-3xl text-white">
-                               {(user.firstname.charAt(0).toUpperCase() || " ")}{(user.lastname.charAt(0).toUpperCase() || " ")}
+                               {(firstname.charAt(0).toUpperCase() || " ")}{(lastname.charAt(0).toUpperCase() || " ")}
 
                             </span>
                         </div>
@@ -155,7 +164,7 @@ export default function Profile() {
                             
                         </h3>
                             <p className="font-semibold text-base text-gray-700 dark:text-gray-300">
-                            example@domain.com
+                                    {user.email}
                             </p>
                     </motion.div>
                 </main>

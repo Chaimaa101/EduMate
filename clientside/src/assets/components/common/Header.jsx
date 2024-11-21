@@ -82,7 +82,7 @@ function Header({ title }) {
                                 {user.firstname } {user.lastname}
                             </p>
                             <small className="font-semibold text-gray-600 dark:text-gray-400">
-                                example@domain.com
+                               {user.email}
                             </small>
                         </div>
                         <button

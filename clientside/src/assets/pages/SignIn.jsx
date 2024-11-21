@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 // import axios from "axios";
 
 function SignIn() {
@@ -22,32 +23,35 @@ function SignIn() {
         setIsColse(!isColse);
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        let errorsInput = validate();
-        setErrors(errorsInput);
-        if (Object.keys(errorsInput).length === 0) {
-            toast.success("Login successful!");
-                setTimeout(() => {
-                    navigate("/profile");           
+   const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    const formData = {
+        email: email,
+        password: password,
+    };
+
+    try {
+        const response = await axios.post('http://localhost:8000/api/login', formData);
+        console.log('Login successful:', response.data.data);
+         toast.success("Sign ip successful!");
+
+            setTimeout(() => {
+                navigate("/Profile");
             }, 600);
-        }
+    } catch (error) {
+        console.error('Login failed:', error.response ? error.response.data : error.message);
+    }
     };
 
     const validate = () => {
         const error = {};
-
-        if (!email || email.trim() === "") {
-            error.email = "Email is Required";
-        } else if (email !== "example@domain.com") {
-            error.email = "Email must be 'example@domain.com'";
-        }
-
-        if (!password || password.trim() === "") {
-            error.password = "Password is Required";
-        } else if (password !== "Tree!Rock17") {
-            error.password = "Password must be 'Tree!Rock17'";
-        }
+ if (!email) {
+        error.email = "Email is required";
+    }
+    if (!password) {
+        error.password = "Password is required";
+    }
         return error;
     };
 
@@ -75,10 +79,10 @@ function SignIn() {
                     </p>
                     <div className="flex flex-col justify-center items-center mb-5">
                         <p className="text-sm font-semibold italic text-gray-800 dark:text-gray-200">
-                            <strong>Email:</strong> example@domain.com
+                            <strong>Email:</strong> firstname.  lastname@domain.com
                         </p>
                         <p className="text-sm font-semibold italic text-gray-800 dark:text-gray-200">
-                            <strong>Password:</strong> Tree!Rock17
+                            <strong>Password:</strong> firstname@123456
                         </p>
                     </div>
                     <form
