@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller
 {
@@ -33,30 +34,38 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        $infos = $request->validate([
-            'email' => ['required', 'max:255', 'email'],
+        $validatedData = $request->validate([
+            'email' => ['required', 'email', 'max:255'],
             'password' => ['required']
         ]);
 
+        // Attempt login
+        if (Auth::attempt($validatedData)) {
+            // If login is successful
+            $user = Auth::user(); // Retrieve the logged-in user
+            // $token = $user->creatToken('authToken')->plainTextToken; // Generate an API token
 
-        if (Auth::attempt($infos, $request->remember)) {
-
-            return response()->json(['message' => 'Login successful'], 200);
-        } else {
-            return back()->withErrors([
-                'failed' => 'The provider credentials do not match our records.'
-            ]);
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => $user,
+                // 'token' => $token,
+            ], 200);
         }
+
+        // If login fails
+        return response()->json([
+            'message' => 'Invalid credentials. Please try again.',
+        ], 401); // 401 Unauthorized status code
     }
     public function logout(Request $request)
-    {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+{
+        if ($request->user() && $request->user()->currentAccessToken()) {
+            $request->user()->currentAccessToken()->delete();
+        }
 
         return response()->json(['message' => 'Logged out successfully'], 200);
-    }
+}
+
 
     /**
      * Show the form for editing the specified resource.
@@ -69,7 +78,7 @@ class AuthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $Userid)
     {
         $validated = $request->validate([
             'firstname' => 'required|max:255',
@@ -78,7 +87,7 @@ class AuthController extends Controller
             'password' => 'nullable|min:8',
         ]);
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($Userid);
 
         $user->firstname = $validated['firstname'];
         $user->lastname = $validated['lastname'];

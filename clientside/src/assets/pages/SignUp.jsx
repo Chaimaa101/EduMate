@@ -41,7 +41,7 @@ function SignUp() {
         try {
 
             const res = await axios.post("http://localhost:8000/api/register", userData);
-            console.log("New User Added:", userData);
+            console.log("New User Added:", res);
 
             setUser(userData);
             setfirstname("");

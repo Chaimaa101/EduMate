@@ -25,7 +25,14 @@ function SignIn() {
 
    const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+        if (errors.email) toast.error(errors.email);
+        if (errors.password) toast.error(errors.password);
+        return;
+    }
+
     const formData = {
         email: email,
         password: password,
@@ -33,28 +40,49 @@ function SignIn() {
 
     try {
         const response = await axios.post('http://localhost:8000/api/login', formData);
-        console.log('Login successful:', response.data.data);
-         toast.success("Sign ip successful!");
 
-            setTimeout(() => {
-                navigate("/Profile");
-            }, 600);
+        // Save token and user data
+         const { token, user } = response.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user))
+
+        toast.success("Sign in successful!");
+        setTimeout(() => {
+            navigate("/Profile");
+        }, 600);
     } catch (error) {
         console.error('Login failed:', error.response ? error.response.data : error.message);
-    }
-    };
 
-    const validate = () => {
-        const error = {};
- if (!email) {
-        error.email = "Email is required";
+        if (error.response?.status === 401) {
+            toast.error("Invalid credentials. Please try again.");
+        } else {
+            toast.error("An unexpected error occurred.");
+        }
     }
+};
+const validate = () => {
+    const errors = {};
+
+    // Check if email is entered
+    if (!email) {
+        errors.email = "Email is required";
+    } else {
+        // Check if email format is valid
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            errors.email = "Please enter a valid email address";
+        }
+    }
+
+    // Check if password is entered
     if (!password) {
-        error.password = "Password is required";
+        errors.password = "Password is required";
+    } else if (password.length < 6) {
+        errors.password = "Password must be at least 6 characters long";
     }
-        return error;
-    };
 
+    return errors;
+};
     return (
         <>
             <Toaster />

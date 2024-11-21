@@ -36,11 +36,6 @@ class CoursController extends Controller
         return Cours::findOrFail($cours->id);
     }
 
-    public function countCourses()
-    {
-        $totalCourses = Cours::count();
-        return response()->json(['totalCourses' => $totalCourses]);
-    }
     /**
      * Update the specified resource in storage.
      */

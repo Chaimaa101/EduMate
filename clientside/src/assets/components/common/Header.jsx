@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTheme } from "../../ThemeContext/ThemeContext";
 import toast, { Toaster } from "react-hot-toast";
 import { useUser } from "../../pages/UserContext";
+import axios from "axios";
 
 // eslint-disable-next-line react/prop-types
 function Header({ title }) {
@@ -12,22 +13,51 @@ function Header({ title }) {
     const navigate = useNavigate();
 
     const {user} = useUser();
+const handleLogout = () => {
+    try {
+    setShowAlert(true);
+    setShowEmail(false);
+    setUser(null);
+   
+  } catch (error) {
+    console.error("Error logging out:", error);
+    // Optionally show an alert or handle error in the UI
+  }
+}
+    const confirmLogout = async() => {
+            try {
+        const token = localStorage.getItem("token"); // Retrieve the token
+        if (!token) {
+            toast.error("No token found, please log in again.");
+            navigate("/signin");
+            return;
+        }
 
-    const handleLogout = () => {
-        setShowAlert(true);
-        setShowEmail(false);
-        setUser(null);  
-        navigate("/signin");
+        const res = await axios.post(
+            "http://localhost:8000/api/logout",
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        console.log(res.data); // Log the response
+        toast.success("You have successfully logged out!");
         
-    };
-
-    const confirmLogout = () => {
+        // Clear user data and token
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         toast.success("You have successfully logged out!");
         setTimeout(() => {
-            navigate("/");
+            navigate("/signin");
         }, 600);
-    };
-
+    } catch (error) {
+        console.error("Error logging out:", error);
+        toast.error("Failed to log out. Please try again.");
+    }
+};
     const { theme, toggleTheme } = useTheme();
 
     const handleSwitchTheme = () => {

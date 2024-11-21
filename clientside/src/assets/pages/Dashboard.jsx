@@ -7,8 +7,42 @@ import PlatformStudents from "../components/dashboard/PlatformStudents";
 import CourseCategory from "../components/dashboard/CourseCategory";
 import PlatformBlogs from "../components/dashboard/PlatformBlogs";
 import PlatformReport from "../components/dashboard/PlatformReport";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Dashboard() {
+const [totalStudents, setTotalStudents] = useState(0);
+    const [totalBlogs, setTotalBlogs] = useState(0); 
+    const [totalCourses, setTotalCourses] = useState(0); 
+    useEffect(() => {
+    // Fetch total students
+    axios.get("http://localhost:8000/api/students")
+        .then((response) => {
+            setTotalStudents((response.data.data).length);
+        })
+        .catch((error) => {
+            console.error("Error fetching students count:", error);
+        });
+
+    // Fetch total blogs
+    axios.get("http://localhost:8000/api/blogs")
+        .then((response) => {
+            setTotalBlogs((response.data.data).length);
+        })
+        .catch((error) => {
+            console.error("Error fetching blogs count:", error);
+        });
+
+        // Fetch total courses
+    axios.get("http://localhost:8000/api/cours")
+        .then((response) => {
+            setTotalCourses((response.data.data).length );
+        })
+        .catch((error) => {
+            console.error("Error fetching courses count:", error);
+        });
+}, []);
+
     return (
         <div className="flex-1 relative overflow-auto z-10 ">
             <Header title={"Dashboard"} />
@@ -22,25 +56,25 @@ function Dashboard() {
                     <StatCard
                         name="Students"
                         icon={GraduationCap}
-                        number="0"
+                        number={totalStudents}
                         bg="#686ef1"
                     />
                     <StatCard
                         name="Courses"
                         icon={LibraryBig}
-                        number="0"
+                        number={totalCourses}
                         bg="#FFA500"
                     />
                     <StatCard
                         name="Reports"
                         icon={FileText}
-                        number="0"
+                        number="20"
                         bg="#40df64"
                     />
                     <StatCard
                         name="Blogs"
                         icon={Newspaper}
-                        number="0"
+                        number={totalBlogs}
                         bg="#d41f79"
                     />
                 </motion.div>

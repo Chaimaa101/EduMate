@@ -35,13 +35,6 @@ class BlogController extends Controller
     {
         return Blog::findOrFail($blog->id);
     }
-
-    public function countBlogs()
-    {
-        $totalBlogs = Blog::count();
-        return response()->json(['totalBlogs' => $totalBlogs]);
-    }
-
     /**
      * Update the specified resource in storage.
      */

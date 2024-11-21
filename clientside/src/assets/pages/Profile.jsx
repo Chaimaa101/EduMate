@@ -10,8 +10,10 @@ export default function Profile() {
     const {user} = useUser();
     const [firstname, setfirstname] = useState(user?.firstname || ''); 
     const [lastname, setlastname] = useState(user?.lastname || '');
-    const [email, setemail] = useState(`${firstname}.${lastname}@domain.com`);
-    const [password, setpassword] = useState(`${firstname}@123456`);
+    const [email, setemail] = useState(user.email);
+    const [password, setpassword] = useState(user.password);
+    const [id, setId] = useState(user.is);
+
 
 
     useEffect(() => {
@@ -23,16 +25,16 @@ export default function Profile() {
     }, [user]);
 
      const userData = {
-        firstname,
-        lastname,
-        email ,
-        password
+        firstname: firstname,
+        lastname: lastname,
+        email: `${firstname}.${lastname}@domain.com`,
+        password: `${firstname}@123456`
     };
 
 const updateUser = async (e) => {
   e.preventDefault();
   try {
-    const res = await axios.put(`http://localhost:8000/api/update/${user.id}`, userData);
+    const res = await axios.put(`http://localhost:8000/api/update/${id}`, userData);
     if (res.status === 200) {
       toast.success("Informations updated successful!");
     } else {
@@ -57,7 +59,7 @@ const updateUser = async (e) => {
                     >
                         <form className="w-full flex flex-col gap-4 px-6 py-3" onSubmit={updateUser}>
                             <div className="flex flex-col gap-2">
-                                <input type="hidden" value={user.id} />
+                                <input type="hidden" value={id} />
                                 <label
                                     className="text-lg font-semibold text-gray-700 dark:text-gray-300"
                                     htmlFor="firstName"
@@ -109,7 +111,10 @@ const updateUser = async (e) => {
                                     type="text"
                                     id="email"
                                     name="email"
-                                    value={user.email}
+                                    value={`${firstname}.${lastname}@domain.com`}
+                                    onChange={(e) =>
+                                        setemail(e.target.value)
+                                    }
                                     readOnly
                                 />
                             </div>
@@ -128,7 +133,10 @@ const updateUser = async (e) => {
                                     type="text"
                                     id="password"
                                     name="password"
-                                    value={user.password}
+                                    value={`${firstname}@123456`}
+                                    onChange={(e) =>
+                                        setpassword(e.target.value)
+                                    }
                                     readOnly
                                 />
                             </div>
