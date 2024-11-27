@@ -12,7 +12,7 @@ export default function Profile() {
     const [lastname, setlastname] = useState(user?.lastname || '');
     const [email, setemail] = useState(user.email);
     const [password, setpassword] = useState(user.password);
-    const [id, setId] = useState(user.is);
+    const [id, setId] = useState(user.id);
 
 
 
@@ -58,8 +58,26 @@ const updateUser = async (e) => {
                         className="bg-white dark:bg-gray-800 bg-opacity-50 backdrop-blur-md shadow-lg rounded-xl overflow-hidden border border-gray-300 dark:border-gray-700"
                     >
                         <form className="w-full flex flex-col gap-4 px-6 py-3" onSubmit={updateUser}>
+                             <div className="flex flex-col gap-2">
+                                 <label
+                                    className="text-lg font-semibold text-gray-700 dark:text-gray-300"
+                                    htmlFor="id"
+                                >
+                                    ID:
+                                </label>
+                                <input
+                                    className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 px-1 py-2 rounded-md outline-none ring-1 ring-gray-300 dark:ring-gray-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-white font-medium text-lg"
+                                    type="text"
+                                    id="id"
+                                    name="id"
+                                    value={id}
+                                    onChange={(e) =>
+                                      setId(e.target.value)
+                                    }
+                                    readOnly
+                                />
+                             </div>
                             <div className="flex flex-col gap-2">
-                                <input type="hidden" value={id} />
                                 <label
                                     className="text-lg font-semibold text-gray-700 dark:text-gray-300"
                                     htmlFor="firstName"
