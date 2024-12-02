@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 
 class AuthController extends Controller
@@ -78,24 +79,27 @@ class AuthController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $Userid)
+    public function update(Request $request, $id)
     {
+        // Check incoming request data
+        Log::info($request->all());
+
+        // Validate input (if any validation logic is applied)
         $validated = $request->validate([
-            'firstname' => 'required|max:255',
-            'lastname' => 'required|max:255',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'password' => 'nullable|min:8',
         ]);
 
-        $user = User::findOrFail($Userid);
+        // Find the user
+        $user = User::findOrFail($id);
 
-        $user->firstname = $validated['firstname'];
-        $user->lastname = $validated['lastname'];
-        $user->email = $validated['email'];
-        if (!empty($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
-        }
+        // Update user information
+        $user->update($validated);
+
+        return response()->json(['message' => 'User updated successfully'], 200);
     }
+
     /**
      * Remove the specified resource from storage.
      */

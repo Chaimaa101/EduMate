@@ -22,6 +22,7 @@ function SignIn() {
         }
         setIsColse(!isColse);
     };
+    
 
    const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,6 +40,8 @@ function SignIn() {
     };
 
     try {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+
         const response = await axios.post('http://localhost:8000/api/login', formData);
 
         // Save token and user data
@@ -49,6 +52,7 @@ function SignIn() {
         toast.success("Sign in successful!");
         setTimeout(() => {
             navigate("/Profile");
+            window.location.reload();
         }, 600);
     } catch (error) {
         console.error('Login failed:', error.response ? error.response.data : error.message);

@@ -42,9 +42,6 @@ const handleLogout = () => {
                 },
             }
         );
-
-        console.log(res.data); // Log the response
-        toast.success("You have successfully logged out!");
         
         // Clear user data and token
         localStorage.removeItem('token');
@@ -112,7 +109,7 @@ const handleLogout = () => {
                                 {user.firstname } {user.lastname}
                             </p>
                             <small className="font-semibold text-gray-600 dark:text-gray-400">
-                               {user.email}
+                               {user?.email}
                             </small>
                         </div>
                         <button

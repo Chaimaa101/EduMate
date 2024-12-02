@@ -7,7 +7,7 @@ import { useUser } from "./UserContext";
 
 export default function Profile() {
 
-    const {user} = useUser();
+    const {user, setUser } = useUser();
     const [firstname, setfirstname] = useState(user?.firstname || ''); 
     const [lastname, setlastname] = useState(user?.lastname || '');
     const [email, setemail] = useState(user.email);
@@ -15,36 +15,45 @@ export default function Profile() {
     const [id, setId] = useState(user.id);
 
 
-
-    useEffect(() => {
-        if (!user) {
-            console.warn("User data is not available. Redirecting to signup...");
-    // Redirect to signup or login page
-    window.location.href = "/signup";
-        }
-    }, [user]);
-
-     const userData = {
-        firstname: firstname,
-        lastname: lastname,
-        email: `${firstname}.${lastname}@domain.com`,
-        password: `${firstname}@123456`
-    };
+  useEffect(() => {
+    // Check if user data is available in localStorage
+    const storedUser = localStorage.getItem('user');
+    
+    if (storedUser) {
+      // Parse the stored JSON string to get the user object
+      setUser(JSON.parse(storedUser));
+    } else {
+      console.warn("No user data found in localStorage");
+    }
+  }, []);
 
 const updateUser = async (e) => {
   e.preventDefault();
+
   try {
-    const res = await axios.put(`http://localhost:8000/api/update/${id}`, userData);
+    const updatedUserData = {
+      firstname : firstname,
+      lastname: lastname,
+      email: `${firstname}.${lastname}@domain.com`,
+      password : `${firstname}@123456`,
+    };
+
+    const res = await axios.put(`http://localhost:8000/api/update/${id}`, updatedUserData);
     if (res.status === 200) {
-      toast.success("Informations updated successful!");
-    } else {
-      throw new Error(`API error: ${res.statusText}`); // Or handle specific errors
+      toast.success("Informations updated successfully!");
+        if (typeof setUser === 'function') {
+                    setUser((prevUser) => ({
+                        ...prevUser,
+                        ...updatedUserData,
+                    }));
+                }
     }
   } catch (error) {
     console.error("Error updating information:", error);
     toast.error("An error occurred while updating the User.");
   }
 };
+
 
     
         return (
@@ -186,7 +195,7 @@ const updateUser = async (e) => {
 
                         {/* User Name and Email */}
                         <h3 className="font-bold text-3xl text-gray-800 dark:text-white">
-                            {user.firstname } {user.lastname}
+                            {firstname } {lastname}
                             
                         </h3>
                             <p className="font-semibold text-base text-gray-700 dark:text-gray-300">

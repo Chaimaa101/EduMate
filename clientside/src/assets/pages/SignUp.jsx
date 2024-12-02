@@ -48,10 +48,10 @@ function SignUp() {
             setlastname("");
 
             setErrors({});
-            toast.success("Sign up successful!");
+            toast.success("Account created successful!");
 
             setTimeout(() => {
-                navigate("/Profile");
+                navigate("/signin");
             }, 600);
 
         } catch (error) {
