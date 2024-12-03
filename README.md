@@ -2,7 +2,7 @@
 	<img
 		width="300"
 		alt="EduMate"
-		src="https://https://github.com/Chaimaa101/EduMate/clientside/public/img/logo.jpg">
+		src="https://github.com/Chaimaa101/EduMate/clientside/public/img/logo.jpg">
 </h1>
 
 <h3 align="center">
