@@ -34,11 +34,11 @@
 
 # 📷 Demo: 
 <video width="320" height="240" controls autoplay muted loop>
-  <source src="https://example.com/path-to-your-video.mp4" type="video/mp4">
+  <source src="https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
-[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mp4)
+[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov)
 
 # ⛓ Description:
 
