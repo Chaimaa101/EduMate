@@ -33,12 +33,7 @@
 </details>
 
 # 📷 Demo: 
-<video width="320" height="240" controls autoplay muted loop>
-  <source src="https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
-[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov)
+https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov
 
 # ⛓ Description:
 
@@ -76,7 +71,7 @@
 # 🔨 Development
 
 ## Tech Stack 
-- Backend: [![Laravel](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
+- Backend: [![Laravel](https://img.shields.io/badge/Laravel-11-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
 - Frontend:[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
 - Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
 - Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
