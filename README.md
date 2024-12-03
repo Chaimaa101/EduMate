@@ -15,8 +15,7 @@
 <summary>Click to expand</summary>
 
 - [📖 Table of Contents](#-table-of-contents)
-- [Demo](#-Demo)
-  
+- [📷Demo](#-Demo) 
 - [⛓ Description ](#-description)
     - [User Management ](#User-Management)
     - [Course Management ](#Course-Management)
@@ -34,10 +33,10 @@
     - [Frontend Setup (React) ](#Frontend-Setup-(React))
     - [Usage ](#Usage) 
 </details>
-# Demo:
 
+# 📷 Demo: 
 
-# Description:
+# ⛓ Description:
 
 <p align="center">
 	Edumate is a dynamic educational management platform designed to streamline the management of users, courses, blogs, and student data. Built using Laravel for the backend and React for the frontend, it provides an intuitive interface and powerful features for administrators, teachers, and students.
@@ -79,15 +78,15 @@
 # 🔨 Development
 
 ## Tech Stack 
-- Backend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
-- Frontend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/), HTML
+- Backend: [![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
+- Frontend:[![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
 - Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
 - Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
 - Authentication: [![Laravel Sanctum](https://img.shields.io/badge/Auth-Laravel%20Sanctum-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/docs/10.x/sanctum)
 - Styling: [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-Styling-teal?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 - API Integration: [![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
 
-# Installation
+# ☑️ Installation
 
 ## Prerequisites
 - PHP >= 8.1
