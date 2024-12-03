@@ -48,14 +48,15 @@
 - Optimal for bright environments.
 - Ensures readability and clarity.
 
-# Tech Stack
+# Tech Stack 
+Backend: Laravel 10 (PHP Framework)
+Frontend: React.js, HTML
+Database: MySQL (managed with TablePlus)
+Testing: Postman for API requests
+Authentication: Laravel Sanctum
+Styling: Tailwind CSS for responsive and modern design
+API Integration: Axios for seamless backend/frontend communication
 
-- Backend: [![Laravel](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
-- Frontend: React js html 
-- Database: MySQLtablePlus postman
-- Authentication: Laravel Sanctum
-- Styling: Tailwind CSS
-- API Integration: Axios APIs for communication between the backend and frontend.
 
 # Installation
 
