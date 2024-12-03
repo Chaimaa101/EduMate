@@ -2,7 +2,7 @@
 	<img
 		width="300"
 		alt="The Lounge"
-		src="https://clientside/public/img/logo.jpg">
+		src="https://https://github.com/Chaimaa101/EduMate/clientside/public/img/logo.jpg">
 </h1>
 
 <h3 align="center">
@@ -10,86 +10,57 @@
 </h3>
 
 <p align="center">
-	<strong>
-		<a href="https://thelounge.chat/">Website</a>
-		•
-		<a href="https://thelounge.chat/docs">Docs</a>
-		•
-		<a href="https://demo.thelounge.chat/">Demo</a>
-    •
-		<a href="https://github.com/thelounge/thelounge-docker">Docker</a>
-	</strong>
-</p>
-<p align="center">
-	<a href="https://demo.thelounge.chat/"><img
-		alt="#thelounge IRC channel on Libera.Chat"
-		src="https://img.shields.io/badge/Libera.Chat-%23thelounge-415364.svg?colorA=ff9e18"></a>
-	<a href="https://yarn.pm/thelounge"><img
-		alt="npm version"
-		src="https://img.shields.io/npm/v/thelounge.svg?colorA=333a41&maxAge=3600"></a>
-	<a href="https://github.com/thelounge/thelounge/actions"><img
-		alt="Build Status"
-		src="https://github.com/thelounge/thelounge/workflows/Build/badge.svg"></a>
+	Edumate is a dynamic educational management platform designed to streamline the management of users, courses, blogs, and student data. Built using Laravel for the backend and React for the frontend, it provides an intuitive interface and powerful features for administrators, teachers, and students.
 </p>
 
-<p align="center">
-	<img src="https://raw.githubusercontent.com/thelounge/thelounge.github.io/master/img/thelounge-screenshot.png" width="550">
-</p>
+<h3 align="center">
+	Description
+</h3>
 
-## Overview
+1. User Management
+1. User Management
+User registration and login through a secure SEMIAC system.
+Profile management to update personal information and view details.
+2. Course Management
+Add, edit, and delete courses.
+Search and filter courses for easy access.
+Role-based permissions for course management.
+3. Blog Management
+Create, update, and delete blog posts.
+View all blogs with details like title, content, and publication date.
+4. Student Management
+View and manage student records, including attendance and grades.
+Import/export student data for bulk updates.
+Search and filter students by criteria.
+5. Questions and Answers
+Users can post questions and provide answers.
+Admin moderation for managing content.
+6. Reports
+Generate detailed reports on user activity, course enrollments, and performance.
+Export reports in PDF or CSV formats.
+7. Dashboard
+Display key metrics such as:
+Total number of students, blogs, and courses.
+Interactive graphs and statistics.
+Quick navigation to important sections.
 
-- **Modern features brought to IRC.** Push notifications, link previews, new message markers, and more bring IRC to the 21st century.
-- **Always connected.** Remains connected to IRC servers while you are offline.
-- **Cross platform.** It doesn't matter what OS you use, it just works wherever Node.js runs.
-- **Responsive interface.** The client works smoothly on every desktop, smartphone and tablet.
-- **Synchronized experience.** Always resume where you left off no matter what device.
+<h3 align="center">
+	Tech Stack
+</h3>
 
-To learn more about configuration, usage and features of The Lounge, take a look at [the website](https://thelounge.chat).
+Backend: Laravel 10
+Frontend: React
+Database: MySQL
+Authentication: Laravel Sanctum
+Styling: Tailwind CSS
+API Integration: Axios APIs for communication between the backend and frontend.
 
-The Lounge is the official and community-managed fork of [Shout](https://github.com/erming/shout), by [Mattias Erming](https://github.com/erming).
+<h3 align="center">
+	Installation
+</h3>
 
-## Installation and usage
-
-The Lounge requires latest [Node.js](https://nodejs.org/) LTS version or more recent.
-The [Yarn package manager](https://yarnpkg.com/) is also recommended.
-If you want to install with npm, `--unsafe-perm` is required for a correct install.
-
-### Running stable releases
-
-Please refer to the [install and upgrade documentation on our website](https://thelounge.chat/docs/install-and-upgrade) for all available installation methods.
-
-### Running from source
-
-The following commands install and run the development version of The Lounge:
-
-```sh
-git clone https://github.com/thelounge/thelounge.git
-cd thelounge
-yarn install
-NODE_ENV=production yarn build
-yarn start
-```
-
-When installed like this, `thelounge` executable is not created. Use `node index <command>` to run commands.
-
-⚠️ While it is the most recent codebase, this is not production-ready! Run at
-your own risk. It is also not recommended to run this as root.
-
-## Development setup
-
-Simply follow the instructions to run The Lounge from source above, on your own
-fork.
-
-Before submitting any change, make sure to:
-
-- Read the [Contributing instructions](https://github.com/thelounge/thelounge/blob/master/.github/CONTRIBUTING.md#contributing)
-- Run `yarn test` to execute linters and the test suite
-  - Run `yarn format:prettier` if linting fails
-- Run `yarn build:client` if you change or add anything in `client/js` or `client/components`
-  - The built files will be output to `public/` by webpack
-- Run `yarn build:server` if you change anything in `server/`
-  - The built files will be output to `dist/` by tsc
-- `yarn dev` can be used to start The Lounge with hot module reloading
-
-To ensure that you don't commit files that fail the linting, you can install a pre-commit git hook.
-Execute `yarn githooks-install` to do so.
+Prerequisites
+PHP >= 8.1
+Composer
+Node.js >= 16.x
+MySQL or any compatible database
