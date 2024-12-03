@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/478991cb-dd15-4382-acb6-8e092003df30)<h1 align="center">
+<h1 align="center">
 	<img
 		width="300"
 		alt="EduMate"
@@ -9,11 +9,39 @@
 	Edumate – Comprehensive Educational Management System
 </h3>
 
+## 📖 Table of Contents
+
+<details>
+<summary>Click to expand</summary>
+
+- [📖 Table of Contents](#-table-of-contents)
+- [Demo](#-Demo)
+  
+- [⛓ Description ](#-description)
+    - [User Management ](#User-Management)
+    - [Course Management ](#Course-Management)
+    - [Blog Management ](#Blog-Management)
+    - [Student Management ](#Student-Management)
+    - [Questions and Answers](#Questions-and-Answers)
+    - [Reports](#Reports)
+    - [Dashboard](#Dashboard)
+    - [Dark Mode](#Dark-Mode)
+- [🔨 Development](#-development)
+    - [Tech Stack](#tech-stack)
+- [☑️ Installation](#Installation)
+    - [Prerequisites ](#Prerequisites)
+    - [Backend Setup (Laravel ](#Backend-Setup-(Laravel))
+    - [Frontend Setup (React) ](#Frontend-Setup-(React))
+    - [Usage ](#Usage) 
+</details>
+# Demo:
+
+
+# Description:
+
 <p align="center">
 	Edumate is a dynamic educational management platform designed to streamline the management of users, courses, blogs, and student data. Built using Laravel for the backend and React for the frontend, it provides an intuitive interface and powerful features for administrators, teachers, and students.
 </p>
-
-# Description:
 
 ## 1. User Management:
 - User registration and login through a secure SEMIAC system.
@@ -48,7 +76,9 @@
 - Optimal for bright environments.
 - Ensures readability and clarity.
 
-# Tech Stack 
+# 🔨 Development
+
+## Tech Stack 
 - Backend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
 - Frontend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/), HTML
 - Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
@@ -98,15 +128,11 @@
 
 13. admin login details  Email=admin@gmail.com or username = admin and Password=123456789.
 
-## Frontend Setup (React)
+## Frontend Setup (React):
 1. Navigate to the frontend folder:
 ```shell
 cd clientside
-```
-```shell
 npm install
-```
-```shell
 npm start
 ```
 
