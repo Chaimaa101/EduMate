@@ -1,66 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">
+	<img
+		width="300"
+		alt="The Lounge"
+		src="https://clientside/public/img/logo.jpg">
+</h1>
+
+<h3 align="center">
+	Edumate – Comprehensive Educational Management System
+</h3>
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+	<strong>
+		<a href="https://thelounge.chat/">Website</a>
+		•
+		<a href="https://thelounge.chat/docs">Docs</a>
+		•
+		<a href="https://demo.thelounge.chat/">Demo</a>
+    •
+		<a href="https://github.com/thelounge/thelounge-docker">Docker</a>
+	</strong>
+</p>
+<p align="center">
+	<a href="https://demo.thelounge.chat/"><img
+		alt="#thelounge IRC channel on Libera.Chat"
+		src="https://img.shields.io/badge/Libera.Chat-%23thelounge-415364.svg?colorA=ff9e18"></a>
+	<a href="https://yarn.pm/thelounge"><img
+		alt="npm version"
+		src="https://img.shields.io/npm/v/thelounge.svg?colorA=333a41&maxAge=3600"></a>
+	<a href="https://github.com/thelounge/thelounge/actions"><img
+		alt="Build Status"
+		src="https://github.com/thelounge/thelounge/workflows/Build/badge.svg"></a>
 </p>
 
-## About Laravel
+<p align="center">
+	<img src="https://raw.githubusercontent.com/thelounge/thelounge.github.io/master/img/thelounge-screenshot.png" width="550">
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Modern features brought to IRC.** Push notifications, link previews, new message markers, and more bring IRC to the 21st century.
+- **Always connected.** Remains connected to IRC servers while you are offline.
+- **Cross platform.** It doesn't matter what OS you use, it just works wherever Node.js runs.
+- **Responsive interface.** The client works smoothly on every desktop, smartphone and tablet.
+- **Synchronized experience.** Always resume where you left off no matter what device.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+To learn more about configuration, usage and features of The Lounge, take a look at [the website](https://thelounge.chat).
 
-## Learning Laravel
+The Lounge is the official and community-managed fork of [Shout](https://github.com/erming/shout), by [Mattias Erming](https://github.com/erming).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Installation and usage
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The Lounge requires latest [Node.js](https://nodejs.org/) LTS version or more recent.
+The [Yarn package manager](https://yarnpkg.com/) is also recommended.
+If you want to install with npm, `--unsafe-perm` is required for a correct install.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Running stable releases
 
-## Laravel Sponsors
+Please refer to the [install and upgrade documentation on our website](https://thelounge.chat/docs/install-and-upgrade) for all available installation methods.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Running from source
 
-### Premium Partners
+The following commands install and run the development version of The Lounge:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+```sh
+git clone https://github.com/thelounge/thelounge.git
+cd thelounge
+yarn install
+NODE_ENV=production yarn build
+yarn start
+```
 
-## Contributing
+When installed like this, `thelounge` executable is not created. Use `node index <command>` to run commands.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+⚠️ While it is the most recent codebase, this is not production-ready! Run at
+your own risk. It is also not recommended to run this as root.
 
-## Code of Conduct
+## Development setup
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Simply follow the instructions to run The Lounge from source above, on your own
+fork.
 
-## Security Vulnerabilities
+Before submitting any change, make sure to:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- Read the [Contributing instructions](https://github.com/thelounge/thelounge/blob/master/.github/CONTRIBUTING.md#contributing)
+- Run `yarn test` to execute linters and the test suite
+  - Run `yarn format:prettier` if linting fails
+- Run `yarn build:client` if you change or add anything in `client/js` or `client/components`
+  - The built files will be output to `public/` by webpack
+- Run `yarn build:server` if you change anything in `server/`
+  - The built files will be output to `dist/` by tsc
+- `yarn dev` can be used to start The Lounge with hot module reloading
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+To ensure that you don't commit files that fail the linting, you can install a pre-commit git hook.
+Execute `yarn githooks-install` to do so.
