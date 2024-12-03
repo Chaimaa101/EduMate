@@ -1,7 +1,7 @@
 <h1 align="center">
 	<img
 		width="300"
-		alt="The Lounge"
+		alt="EduMate"
 		src="https://https://github.com/Chaimaa101/EduMate/clientside/public/img/logo.jpg">
 </h1>
 
@@ -13,14 +13,11 @@
 	Edumate is a dynamic educational management platform designed to streamline the management of users, courses, blogs, and student data. Built using Laravel for the backend and React for the frontend, it provides an intuitive interface and powerful features for administrators, teachers, and students.
 </p>
 
-<h3 align="center">
-	Description
-</h3>
+## Description:
 
-1. User Management
-1. User Management
-User registration and login through a secure SEMIAC system.
-Profile management to update personal information and view details.
+## 1. User Management:
+- User registration and login through a secure SEMIAC system.
+- Profile management to update personal information and view details.
 2. Course Management
 Add, edit, and delete courses.
 Search and filter courses for easy access.
