@@ -34,10 +34,7 @@
 
 # 📷 Demo: 
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/Chaimaa101/EduMate/blob/master/public/video_2024-12-04_00-22-54.mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mp4)
 
 # ⛓ Description:
 
