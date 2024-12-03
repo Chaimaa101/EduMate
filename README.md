@@ -33,7 +33,7 @@
 </details>
 
 # 📷 Demo: 
-https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mov
+[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mp4)
 
 # ⛓ Description:
 
