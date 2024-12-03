@@ -69,7 +69,8 @@ function Students() {
             console.log("Student updated successfully: ", res.data.data);
             fetchStudents();
             resetForm();
-            isShowFormEdit(false); // Hide the edit form
+            isShowFormEdit(false); 
+            
         } catch (error) {
             console.error('Error updating student:', error);
         }

@@ -1,66 +1,143 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<h1 align="center">
+	<img
+		width="300"
+		alt="EduMate"
+		src="https://github.com/Chaimaa101/EduMate/blob/master/clientside/public/img/logo.jpg?raw=true">
+</h1>
+
+<h3 align="center">
+	Edumate – Comprehensive Educational Management System
+</h3>
+
+## 📖 Table of Contents
+
+<details>
+<summary>Click to expand</summary>
+
+- [📖 Table of Contents](#-table-of-contents)
+- [📷Demo](#-Demo) 
+- [⛓ Description ](#-description)
+    - [User Management ](#User-Management)
+    - [Course Management ](#Course-Management)
+    - [Blog Management ](#Blog-Management)
+    - [Student Management ](#Student-Management)
+    - [Questions and Answers](#Questions-and-Answers)
+    - [Reports](#Reports)
+    - [Dashboard](#Dashboard)
+    - [Dark Mode](#Dark-Mode)
+- [🔨 Development](#-development)
+    - [Tech Stack](#tech-stack)
+- [☑️ Installation](#Installation)
+    - [Prerequisites ](#Prerequisites)
+    - [Backend Setup (Laravel ](#Backend-Setup-(Laravel))
+    - [Frontend Setup (React) ](#Frontend-Setup-(React))
+    - [Usage ](#Usage) 
+</details>
+
+# 📷 Demo: 
+
+# ⛓ Description:
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+	Edumate is a dynamic educational management platform designed to streamline the management of users, courses, blogs, and student data. Built using Laravel for the backend and React for the frontend, it provides an intuitive interface and powerful features for administrators, teachers, and students.
 </p>
 
-## About Laravel
+## 1. User Management:
+- User registration and login through a secure SEMIAC system.
+- Profile management to update personal information and view details.
+## 2. Course Management:
+- Add, edit, and delete courses.
+- Search and filter courses for easy access.
+- Role-based permissions for course management.
+## 3. Blog Management:
+- Create, update, and delete blog posts.
+- View all blogs with details like title, content, and publication date.
+## 4. Student Management:
+- View and manage student records, including attendance and grades.
+- Import/export student data for bulk updates.
+- Search and filter students by criteria.
+## 5. Questions and Answers:
+- Users can post questions and provide answers.
+- Admin moderation for managing content.
+## 6. Reports:
+- Generate detailed reports on user activity, course enrollments, and performance.
+- Export reports in PDF or CSV formats.
+## 7. Dashboard:
+- Display key metrics such as:
+- Total number of students, blogs, and courses.
+- Interactive graphs and statistics.
+- Quick navigation to important sections.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 8. Dark Mode:
+- Reduces eye strain in low-light environments.
+- Provides a modern, sleek interface.
+## 9. Light Mode:
+- Optimal for bright environments.
+- Ensures readability and clarity.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 🔨 Development
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech Stack 
+- Backend: [![Laravel](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
+- Frontend:[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
+- Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
+- Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
+- Authentication: [![Laravel Sanctum](https://img.shields.io/badge/Auth-Laravel%20Sanctum-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/docs/10.x/sanctum)
+- Styling: [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-Styling-teal?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+- API Integration: [![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
 
-## Learning Laravel
+# ☑️ Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
+- PHP >= 8.1
+- Composer
+- Node.js >= 16.x
+- MySQL or any compatible database
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Backend Setup (Laravel):
 
-## Laravel Sponsors
+1. Install XAMPP or WAMPP.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Open XAMPP Control panal and start [apache] and [mysql] .
 
-### Premium Partners
+3. Download project from github (https://github.com/Chaimaa101/EduMate.git)  
+    OR follow gitbash commands
+    
+    i> cd C:\\xampp\htdocs\
+     ii> git clone https://github.com/Chaimaa101/EduMate.git
+    
+4. extract files in C:\\xampp\htdocs\.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+5. open link localhost/phpmyadmin
 
-## Contributing
+6. click on new at side navbar.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. give a database name as (edumate) hit on create button.
 
-## Code of Conduct
+8. after creating database name click on import.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+9. browse the file in directory[EduMate/database/onlineshop.sql].
 
-## Security Vulnerabilities
+10. after importing successfully.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+11. open any browser and type http://localhost/EduMate.
 
-## License
+12. first register and then login
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+13. admin login details  Email=admin@gmail.com or username = admin and Password=123456789.
+
+## Frontend Setup (React):
+1. Navigate to the frontend folder:
+```shell
+cd clientside
+npm install
+npm start
+```
+
+### Usage
+1. Visit the registration page to create an account.
+2. Log in to access your profile and manage data.
+3. Navigate through the platform to manage courses, students, blogs, and reports.
+4. Use the dashboard to monitor system statistics and activity.
+
