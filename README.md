@@ -1,4 +1,4 @@
-<h1 align="center">
+![image](https://github.com/user-attachments/assets/478991cb-dd15-4382-acb6-8e092003df30)<h1 align="center">
 	<img
 		width="300"
 		alt="EduMate"
@@ -49,14 +49,13 @@
 - Ensures readability and clarity.
 
 # Tech Stack 
-Backend: Laravel 10 (PHP Framework)
-Frontend: React.js, HTML
-Database: MySQL (managed with TablePlus)
-Testing: Postman for API requests
-Authentication: Laravel Sanctum
-Styling: Tailwind CSS for responsive and modern design
-API Integration: Axios for seamless backend/frontend communication
-
+- Backend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
+- Frontend: ![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/), HTML
+- Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
+- Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
+- Authentication: [![Laravel Sanctum](https://img.shields.io/badge/Auth-Laravel%20Sanctum-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/docs/10.x/sanctum)
+- Styling: [![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-Styling-teal?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+- API Integration: [![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
 
 # Installation
 
