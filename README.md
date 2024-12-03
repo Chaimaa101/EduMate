@@ -21,8 +21,6 @@
     - [Course Management ](#Course-Management)
     - [Blog Management ](#Blog-Management)
     - [Student Management ](#Student-Management)
-    - [Questions and Answers](#Questions-and-Answers)
-    - [Reports](#Reports)
     - [Dashboard](#Dashboard)
     - [Dark Mode](#Dark-Mode)
 - [🔨 Development](#-development)
@@ -36,6 +34,11 @@
 
 # 📷 Demo: 
 
+<video width="320" height="240" controls>
+  <source src="https://github.com/Chaimaa101/EduMate/blob/master/public/video_2024-12-04_00-22-54.mp4">
+  Your browser does not support the video tag.
+</video>
+
 # ⛓ Description:
 
 <p align="center">
@@ -43,35 +46,29 @@
 </p>
 
 ## 1. User Management:
-- User registration and login through a secure SEMIAC system.
+- User registration and login through a secure system.
 - Profile management to update personal information and view details.
 ## 2. Course Management:
 - Add, edit, and delete courses.
 - Search and filter courses for easy access.
-- Role-based permissions for course management.
+
 ## 3. Blog Management:
 - Create, update, and delete blog posts.
-- View all blogs with details like title, content, and publication date.
+- View all blogs with details like title, content, and tags.
 ## 4. Student Management:
-- View and manage student records, including attendance and grades.
+- View and manage student .
 - Import/export student data for bulk updates.
 - Search and filter students by criteria.
-## 5. Questions and Answers:
-- Users can post questions and provide answers.
-- Admin moderation for managing content.
-## 6. Reports:
-- Generate detailed reports on user activity, course enrollments, and performance.
-- Export reports in PDF or CSV formats.
-## 7. Dashboard:
+## 6. Dashboard:
 - Display key metrics such as:
-- Total number of students, blogs, and courses.
-- Interactive graphs and statistics.
-- Quick navigation to important sections.
+    - Total number of students, blogs, and courses.
+    - Interactive graphs and statistics.
+    - Quick navigation to important sections.
 
-## 8. Dark Mode:
+## 7. Dark Mode:
 - Reduces eye strain in low-light environments.
 - Provides a modern, sleek interface.
-## 9. Light Mode:
+## 8. Light Mode:
 - Optimal for bright environments.
 - Ensures readability and clarity.
 
