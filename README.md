@@ -2,7 +2,8 @@
 	<img
 		width="300"
 		alt="EduMate"
-		src="https://github.com/Chaimaa101/EduMate/clientside/public/img/logo.jpg">
+		src="![image](https://github.com/user-attachments/assets/84b6f70b-1dda-42ed-a3a4-8bd0b312dab5)
+">
 </h1>
 
 <h3 align="center">
@@ -78,8 +79,8 @@
 # 🔨 Development
 
 ## Tech Stack 
-- Backend: [![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
-- Frontend:[![Axios](https://img.shields.io/badge/Axios-API%20Integration-lightgrey?style=flat-square)](https://axios-http.com/)
+- Backend: [![Laravel](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
+- Frontend:[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
 - Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
 - Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
 - Authentication: [![Laravel Sanctum](https://img.shields.io/badge/Auth-Laravel%20Sanctum-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/docs/10.x/sanctum)
