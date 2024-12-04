@@ -33,7 +33,9 @@
 </details>
 
 # 📷 Demo: 
-[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mp4)
+
+https://github.com/user-attachments/assets/8b341e89-d78c-4c01-aeff-8b787145f53d
+
 
 # ⛓ Description:
 
