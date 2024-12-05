@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
-    'allowed_origins' => ['http://localhost:3000', 'http://localhost:5173'], // Add your frontend URL
+    'allowed_origins' => ['http://localhost:3000'], // Add your frontend URL
 
     'supports_credentials' => true,
 
