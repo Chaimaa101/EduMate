@@ -23,6 +23,7 @@
     - [Student Management ](#Student-Management)
     - [Dashboard](#Dashboard)
     - [Dark Mode](#Dark-Mode)
+    - [Fully Responsive](#Fully-Responsive)
 - [🔨 Development](#-development)
     - [Tech Stack](#tech-stack)
 - [☑️ Installation](#Installation)
@@ -71,6 +72,9 @@ https://github.com/user-attachments/assets/d39e62b7-bf71-4759-badb-df514f7ecff0
 ## 8. Light Mode:
 - Optimal for bright environments.
 - Ensures readability and clarity.
+
+## 9.Fully Responsive:
+Edumate is designed to adapt to all device types, whether you're using a desktop, tablet, or mobile. The platform ensures a smooth and user-friendly experience across all screen sizes.
 
 # 🔨 Development
 
