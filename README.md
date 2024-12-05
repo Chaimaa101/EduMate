@@ -144,6 +144,6 @@ We collaborated to develop **Edumate**, each contributing to different aspects o
 
 | Name                | GitHub Profile                                      | Role                                                |
 |-------------------- |---------------------------------------------------- |---------------------------------------------------- |
-| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         | Backend Developer, Database , API Tester            |
+| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         | Backend Developer , API Tester                      |
 | **Younes BOUKRIM**  | [BoukrimYounes](https://github.com/BoukrimYounes)   | UI/UX Designer, Frontend Developer (React)          |
 
