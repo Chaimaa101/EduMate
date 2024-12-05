@@ -34,8 +34,7 @@
 
 # 📷 Demo: 
 
-
-Uploading video_2024-12-05_16-34-20 (1).mp4…
+https://github.com/user-attachments/assets/d39e62b7-bf71-4759-badb-df514f7ecff0
 
 
 
@@ -137,4 +136,13 @@ npm start
 2. Log in to access your profile and manage data.
 3. Navigate through the platform to manage courses, students, blogs, and reports.
 4. Use the dashboard to monitor system statistics and activity.
+
+## 🤝 Collaborators
+
+We collaborated to develop **Edumate**, each contributing to different aspects of the project:
+
+| Name                | GitHub Profile                                      | Role                                                |
+|-------------------- |---------------------------------------------------- |---------------------------------------------------- |
+| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         | Backend Developer, Database , API Tester            |
+| **Younes BOUKRIM**  | [BoukrimYounes](https://github.com/BoukrimYounes)   | UI/UX Designer, Frontend Developer (React)          |
 
