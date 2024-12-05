@@ -29,7 +29,8 @@
     - [Prerequisites ](#Prerequisites)
     - [Backend Setup (Laravel ](#Backend-Setup-(Laravel))
     - [Frontend Setup (React) ](#Frontend-Setup-(React))
-    - [Usage ](#Usage) 
+    - [Usage ](#Usage)
+-[🤝 Collaborators](#Collaborators)
 </details>
 
 # 📷 Demo: 
@@ -137,7 +138,7 @@ npm start
 3. Navigate through the platform to manage courses, students, blogs, and reports.
 4. Use the dashboard to monitor system statistics and activity.
 
-## 🤝 Collaborators
+# 🤝 Collaborators
 
 We collaborated to develop **Edumate**, each contributing to different aspects of the project:
 
