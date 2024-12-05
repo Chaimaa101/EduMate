@@ -17,28 +17,28 @@
 - [📖 Table of Contents](#-table-of-contents)
 - [📷Demo](#-Demo) 
 - [⛓ Description ](#-description)
-    - [User Management ](#User-Management)
-    - [Course Management ](#Course-Management)
-    - [Blog Management ](#Blog-Management)
-    - [Student Management ](#Student-Management)
-    - [Dashboard](#Dashboard)
-    - [Dark Mode](#Dark-Mode)
+    - [User Management ](#user-management)
+    - [Course Management ](#course-management)
+    - [Blog Management ](#blog-management)
+    - [Student Management ](#student-management)
+    - [Dashboard](#dashboard)
+    - [Dark Mode](#dark-mode)
+    - [Fully Responsive](#fully-responsive)
 - [🔨 Development](#-development)
     - [Tech Stack](#tech-stack)
-- [☑️ Installation](#Installation)
-    - [Prerequisites ](#Prerequisites)
-    - [Backend Setup (Laravel ](#Backend-Setup-(Laravel))
-    - [Frontend Setup (React) ](#Frontend-Setup-(React))
-    - [Usage ](#Usage) 
+- [☑️ Installation](#installation)
+    - [Prerequisites ](#prerequisites)
+    - [Backend Setup (Laravel ](#backend-setup-(laravel))
+    - [Frontend Setup (React) ](#frontend-setup-(react))
+    - [Usage ](#usage)
+-[🤝 Collaborators](#collaborators)
 </details>
 
 # 📷 Demo: 
-<video width="320" height="240" controls autoplay muted loop>
-  <source src="https://example.com/path-to-your-video.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
-[Watch the Demo Video](https://github.com/Chaimaa101/EduMate/raw/master/public/video_2024-12-04_00-22-54.mp4)
+https://github.com/user-attachments/assets/d39e62b7-bf71-4759-badb-df514f7ecff0
+
+
 
 # ⛓ Description:
 
@@ -73,10 +73,13 @@
 - Optimal for bright environments.
 - Ensures readability and clarity.
 
+## 9.Fully Responsive:
+Edumate is designed to adapt to all device types, whether you're using a desktop, tablet, or mobile. The platform ensures a smooth and user-friendly experience across all screen sizes.
+
 # 🔨 Development
 
 ## Tech Stack 
-- Backend: [![Laravel](https://img.shields.io/badge/Laravel-10-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
+- Backend: [![Laravel](https://img.shields.io/badge/Laravel-11-red?style=flat-square&logo=laravel&logoColor=white)](https://laravel.com/)
 - Frontend:[![React](https://img.shields.io/badge/React-18-blue?style=flat-square&logo=react&logoColor=white)](https://reactjs.org/)
 - Database:[![MySQL](https://img.shields.io/badge/MySQL-Database-orange?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
 - Testing: [![Postman](https://img.shields.io/badge/Postman-API%20Testing-orange?style=flat-square&logo=postman&logoColor=white)](https://www.postman.com/)
@@ -138,4 +141,13 @@ npm start
 2. Log in to access your profile and manage data.
 3. Navigate through the platform to manage courses, students, blogs, and reports.
 4. Use the dashboard to monitor system statistics and activity.
+
+# 🤝 Collaborators
+
+We collaborated to develop **Edumate**, each contributing to different aspects of the project:
+
+| Name                | GitHub Profile                                      | Role                                                |
+|-------------------- |---------------------------------------------------- |---------------------------------------------------- |
+| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         | Backend Developer , API Tester                      |
+| **Younes BOUKRIM**  | [BoukrimYounes](https://github.com/BoukrimYounes)   | UI/UX Designer, Frontend Developer (React)          |
 
