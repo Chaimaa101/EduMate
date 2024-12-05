@@ -34,7 +34,9 @@
 
 # 📷 Demo: 
 
-https://github.com/user-attachments/assets/8b341e89-d78c-4c01-aeff-8b787145f53d
+
+Uploading video_2024-12-05_16-34-20 (1).mp4…
+
 
 
 # ⛓ Description:
