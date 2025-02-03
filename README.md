@@ -95,38 +95,26 @@ Edumate is designed to adapt to all device types, whether you're using a desktop
 - Node.js >= 16.x
 - MySQL or any compatible database
 
-
 ## Backend Setup (Laravel):
 
-1. Install XAMPP or WAMPP.
 
-2. Open XAMPP Control panal and start [apache] and [mysql] .
-
-3. Download project from github (https://github.com/Chaimaa101/EduMate.git)  
-    OR follow gitbash commands
-    
-    i> cd C:\\xampp\htdocs\
-     ii> git clone https://github.com/Chaimaa101/EduMate.git
-    
-4. extract files in C:\\xampp\htdocs\.
-
-5. open link localhost/phpmyadmin
-
-6. click on new at side navbar.
-
-7. give a database name as (edumate) hit on create button.
-
-8. after creating database name click on import.
-
-9. browse the file in directory[EduMate/database/onlineshop.sql].
-
-10. after importing successfully.
-
-11. open any browser and type http://localhost/EduMate.
-
-12. first register and then login
-
-13. admin login details  Email=admin@gmail.com or username = admin and Password=123456789.
+1. **Clone the repository:**  
+   ```bash
+   git clone https://github.com/Chaimaa101/EduMate.git
+   cd EduMate
+2. **Install dependencies:**
+   ```bash
+   composer install
+3. **Set up the environment:**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+4. **Configure the database in .env and run migrations:**
+   ```bash
+   php artisan migrate
+5. **Run the development server:**
+    ```bash
+    php artisan serve
 
 ## Frontend Setup (React):
 1. Navigate to the frontend folder:
@@ -135,7 +123,6 @@ cd clientside
 npm install
 npm start
 ```
-
 ### Usage
 1. Visit the registration page to create an account.
 2. Log in to access your profile and manage data.
